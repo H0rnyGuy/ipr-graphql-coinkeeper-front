@@ -8,3 +8,13 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+export const REGISTER_MUTATION = gql`
+  mutation Signup($data: CreateUserDto!) {
+    signup(data: $data) {
+        id
+        email
+        username
+    }
+  }
+`;
