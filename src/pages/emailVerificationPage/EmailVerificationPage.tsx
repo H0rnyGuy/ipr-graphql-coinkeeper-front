@@ -1,6 +1,6 @@
-import {useLocation} from "react-router-dom";
-import {useEffect} from "react";
-import {useEmailVerification} from "../../hooks/emailVerificationPage/useEmailVerification.ts";
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useEmailVerification } from '../../hooks/emailVerificationPage/useEmailVerification.ts';
 
 let isVerifying = false;
 

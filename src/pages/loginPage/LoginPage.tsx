@@ -1,7 +1,7 @@
-import { useState } from "react";
-import {toast} from "react-toastify";
-import {useLogin} from "../../hooks/LoginPage/useLogin.ts";
-import {useRegister} from "../../hooks/LoginPage/useRegister.ts";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useLogin } from '../../hooks/LoginPage/useLogin.ts';
+import { useRegister } from '../../hooks/LoginPage/useRegister.ts';
 
 const LoginPage = () => {
     const [isRegistering, setIsRegistering] = useState(false); // Переключение между логином и регистрацией

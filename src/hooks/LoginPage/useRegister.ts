@@ -1,7 +1,7 @@
-import { useMutation } from "@apollo/client";
-import { REGISTER_MUTATION } from "../../api/auth";
-import { toast } from "react-toastify";
-import { apolloUsersClient } from "../../api";
+import { useMutation } from '@apollo/client';
+import { REGISTER_MUTATION } from '../../api/auth';
+import { toast } from 'react-toastify';
+import { apolloUsersClient } from '../../api';
 
 export function useRegister() {
     const [registerMutation, { loading }] = useMutation(REGISTER_MUTATION, {

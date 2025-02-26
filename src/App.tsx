@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
-import { RootState } from "./store/store";
-import {ToastContainer} from "react-toastify";
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { RootState } from './store/store';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
     const navigate = useNavigate();

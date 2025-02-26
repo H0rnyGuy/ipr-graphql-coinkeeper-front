@@ -1,10 +1,10 @@
-import { useMutation } from "@apollo/client";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { LOGIN_MUTATION } from "../../api/auth";
-import { setCredentials } from "../../store/authentification/authSlice.ts";
-import { toast } from "react-toastify";
-import { apolloSessionsClient } from "../../api";
+import { useMutation } from '@apollo/client';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { LOGIN_MUTATION } from '../../api/auth';
+import { setCredentials } from '../../store/authentification/authSlice.ts';
+import { toast } from 'react-toastify';
+import { apolloSessionsClient } from '../../api';
 
 export function useLogin() {
     const dispatch = useDispatch();
