@@ -18,3 +18,20 @@ export const REGISTER_MUTATION = gql`
     }
   }
 `;
+
+export const VERIFY_EMAIL_MUTATION = gql`
+  mutation verifyEmail($data: VerificationTokenDto!) {
+    verifyEmail(data: $data) {
+        user {
+            id
+            email
+            username
+            isVerified
+        }
+        session {
+              accessToken
+              refreshToken
+        }
+    }
+  }
+`;

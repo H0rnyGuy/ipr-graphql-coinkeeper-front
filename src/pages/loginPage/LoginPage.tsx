@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {LOGIN_MUTATION, REGISTER_MUTATION} from "../../api/auth";
-import { setCredentials } from "../../store/authentification/authSlice.ts";
-import {apolloSessionsClient, apolloUsersClient} from "../../api";
+import {toast} from "react-toastify";
+import {useLogin} from "../../hooks/LoginPage/useLogin.ts";
+import {useRegister} from "../../hooks/LoginPage/useRegister.ts";
 
 const LoginPage = () => {
     const [isRegistering, setIsRegistering] = useState(false); // Переключение между логином и регистрацией
@@ -14,73 +11,28 @@ const LoginPage = () => {
     const [username, setUserName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const { login, loading: loginLoading } = useLogin();
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const [login, { loading: loginLoading, error: loginError }] = useMutation(LOGIN_MUTATION, {
-        client: apolloSessionsClient,
-        onCompleted: (data) => {
-            if (data.session_login) {
-                dispatch(setCredentials(data.session_login));
-                navigate("/categories"); // Редирект после логина
-            }
-        },
-    });
-
-    const [register, { loading: registerLoading, error: registerError }] = useMutation(REGISTER_MUTATION, {
-        client: apolloUsersClient,
-        onCompleted: (data) => {
-            if (data.data) {
-                dispatch(setCredentials(data.data));
-                navigate("/categories");
-            }
-        },
-    });
+    const { register, loading: registerLoading } = useRegister();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (isRegistering) {
             if (password !== confirmPassword) {
-                alert("Пароли не совпадают");
+                toast.error("Passwords doesn't match");
                 return;
             }
 
-            console.log(                 {
-                registerData: {
-                    username,
-                        email,
-                        password,
-                },
-            },)
-            await register({
-                variables: {
-                    data: {
-                        username,
-                        email,
-                        password,
-                    },
-                },
-            });
+            await register(username, email, password);
         } else {
-            await login({
-                variables: {
-                    loginData: {
-                        email,
-                        password,
-                        lifeTime: 1000000000,
-                    },
-                },
-            });
+            await login(email, password);
         }
     };
 
     return (
         <div>
-            <h1>{isRegistering ? "Регистрация" : "Вход"}</h1>
+            <h1>{isRegistering ? "Registration" : "Login"}</h1>
             <form onSubmit={handleSubmit}>
                 {isRegistering && (
                     <>
@@ -96,8 +48,6 @@ const LoginPage = () => {
                     {isRegistering ? "Зарегистрироваться" : "Войти"}
                 </button>
             </form>
-            {loginError && <p style={{ color: "red" }}>Ошибка входа: {loginError.message}</p>}
-            {registerError && <p style={{ color: "red" }}>Ошибка регистрации: {registerError.message}</p>}
             <button onClick={() => setIsRegistering(!isRegistering)}>
                 {isRegistering ? "Уже есть аккаунт? Войти" : "Нет аккаунта? Зарегистрироваться"}
             </button>
