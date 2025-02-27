@@ -9,7 +9,7 @@ const App = () => {
     const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated);
 
     useEffect(() => {
-        if (!isAuthenticated && !window.location.pathname.includes("/verify-email")) {
+        if (!isAuthenticated && !window.location.pathname.includes("/verify-email") && !window.location.pathname.includes("/reset-password")) {
             navigate("/login");
         }
     }, [isAuthenticated, navigate]);

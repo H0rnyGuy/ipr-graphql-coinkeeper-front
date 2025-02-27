@@ -1,23 +1,20 @@
 import { useMutation } from '@apollo/client';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { VERIFY_EMAIL_MUTATION } from '../../api/auth';
-import { setCredentials } from '../../store/authentification/authSlice.ts';
+import { RESET_PASSWORD } from '../../api/auth';
 import { toast } from 'react-toastify';
 import { apolloVerificationsClient} from '../../api';
 
-export function useEmailVerification() {
-    const dispatch = useDispatch();
+export function useResetPassword() {
     const navigate = useNavigate();
 
-    const [emailVerificationMutation, { loading }] = useMutation(VERIFY_EMAIL_MUTATION, {
+    const [resetPasswordMutation, { loading }] = useMutation(RESET_PASSWORD, {
         client: apolloVerificationsClient,
         onCompleted: (data) => {
+            console.log(data)
 
-            if (data?.verifyEmail?.session) {
-                dispatch(setCredentials(data.verifyEmail.session));
-                toast.success("Email подтверждён! Вы вошли в систему.");
-                navigate("/categories");
+            if (data?.confirmPassword?.success) {
+                toast.success("Password is reset proceed to login.");
+                navigate("/login");
             } else {
                 toast.error("Ошибка подтверждения, попробуйте ещё раз.");
             }
@@ -31,15 +28,16 @@ export function useEmailVerification() {
         },
     });
 
-    const VerifyEmail = async (token: string) => {
-        await emailVerificationMutation({
+    const resetPassword = async (password: string, token: string) => {
+        await resetPasswordMutation({
             variables: {
                 data: {
+                    password,
                     token
                 },
             },
         });
     };
 
-    return { VerifyEmail, loading };
+    return { resetPassword, loading };
 }

@@ -5,6 +5,7 @@ import CategoriesPage from './pages/CategoriesPage';
 import CategoryPage from './pages/CategoryPage';
 import EmailVerificationPage from './pages/emailVerificationPage/EmailVerificationPage.tsx';
 import NotFoundPage from './pages/NotFoundPage';
+import ResetPasswordPage from "./pages/resetPasswordPage/ResetPasswordPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
             { path: "/categories", element: <CategoriesPage /> },
             { path: "/categories/:id", element: <CategoryPage /> },
             { path: "/verify-email", element: <EmailVerificationPage /> },
+            { path: "/reset-password", element: <ResetPasswordPage />},
             { path: "*", element: <NotFoundPage /> }, // 404
         ],
     },

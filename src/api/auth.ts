@@ -35,3 +35,19 @@ export const VERIFY_EMAIL_MUTATION = gql`
     }
   }
 `;
+
+export const RESET_PASSWORD = gql`
+    mutation confirmPassword($data: PasswordVerificationDto!) {
+      confirmPassword(data: $data) {
+        success
+      }
+    }
+`;
+
+export const SEND_RESET_PASSWORD_EMAIL = gql`
+    mutation resetPassword($data: ResendEmailVerificationDto!) {
+        resetPassword(data: $data) {
+            success
+        }
+    }
+`;
