@@ -1,5 +1,12 @@
+import ProfileMenu from "../components/ProfileMenu.tsx";
+
 const CategoriesPage = () => {
-    return <h1>Категории</h1>;
+    return (
+        <div>
+            <ProfileMenu />
+            <h1>Категории</h1>
+        </div>
+    );
 };
 
 export default CategoriesPage;

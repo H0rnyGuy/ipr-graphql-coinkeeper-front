@@ -9,6 +9,14 @@ export const LOGIN_MUTATION = gql`
   }
 `;
 
+export const LOGOUT_MUTATION = gql`
+    mutation session_logout {
+      session_logout {
+        success
+      }
+    }
+`;
+
 export const REGISTER_MUTATION = gql`
   mutation Signup($data: CreateUserDto!) {
     signup(data: $data) {

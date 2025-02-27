@@ -44,6 +44,7 @@ const LoginPage = () => {
             </h2>
 
             <form onSubmit={handleSubmit}>
+                {/* Форма для логина */}
                 {view === "login" && (
                     <>
                         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -51,6 +52,7 @@ const LoginPage = () => {
                     </>
                 )}
 
+                {/* Форма для регистрации */}
                 {view === "register" && (
                     <>
                         <input type="text" placeholder="Username" value={username} onChange={(e) => setUserName(e.target.value)} required />
@@ -60,6 +62,8 @@ const LoginPage = () => {
                     </>
                 )}
 
+
+                {/* Поле для сброса пароля */}
                 {view === "resetPassword" && (
                     <>
                         <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -75,6 +79,8 @@ const LoginPage = () => {
 
             {/* Ссылки для переключения между формами */}
             <div className="toggle-view text-center mt-3">
+
+
                 {view === 'login' && (
                     <>
                         <a href="#0" onClick={() => setView('register')}>Need an account? Register</a>
@@ -82,9 +88,12 @@ const LoginPage = () => {
                         <a href="#0" onClick={() => setView('resetPassword')}>Forgot password? Reset</a>
                     </>
                 )}
+
+
                 {view === 'register' && (
                     <a href="#0" onClick={() => setView('login')}>Have an account? Login</a>
                 )}
+
                 {view === 'resetPassword' && (
                     <a href="#0" onClick={() => setView('login')}>Back to Login</a>
                 )}
