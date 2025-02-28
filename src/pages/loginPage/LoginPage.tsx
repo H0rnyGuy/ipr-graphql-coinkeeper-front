@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { toast } from 'react-toastify';
 import { useLogin } from '../../hooks/LoginPage/useLogin.ts';
 import { useRegister } from '../../hooks/LoginPage/useRegister.ts';
 import { useForgotPassword } from '../../hooks/LoginPage/useForgetPassword.ts';
+import '../../styles/LoginPage.css'
+import { gapi } from 'gapi-script';
+import { GoogleLogin } from "@react-oauth/google";
 
 const LoginPage = () => {
     const [view, setView] = useState('login');
@@ -18,6 +21,20 @@ const LoginPage = () => {
     const { register, loading: registerLoading } = useRegister();
 
     const { sendResetEmail, loading: resetLoading } = useForgotPassword();
+
+    const clientId = import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID;
+
+    useEffect(() => {
+        function start() {
+            console.log(clientId)
+            gapi.client.init({
+                clientId: clientId,
+                scope: "openid"
+            })
+        }
+
+        gapi.load('client:auth2', start);
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,15 +52,24 @@ const LoginPage = () => {
         }
     };
 
-    return (
-        <div>
-            <h2 className="login-header">
-                {view === 'login' && 'Login'}
-                {view === 'register' && 'Register'}
-                {view === 'resetPassword' && 'Reset Password'}
-            </h2>
+    const onSuccess = async (response) => {
+        const googleAccessToken = response.tokenId
 
-            <form onSubmit={handleSubmit}>
+        // googleLogin(googleAccessToken);
+    }
+
+    return (
+        <div className="auth-page">
+
+            <div className="auth-container">
+                <h2 className="auth-header">
+                    {view === 'login' && 'Login'}
+                    {view === 'register' && 'Register'}
+                    {view === 'resetPassword' && 'Reset Password'}
+                </h2>
+
+
+            <form className="auth-form" onSubmit={handleSubmit}>
                 {/* Форма для логина */}
                 {view === "login" && (
                     <>
@@ -69,16 +95,28 @@ const LoginPage = () => {
                         <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </>
                 )}
-
-                <button type="submit" disabled={loginLoading || registerLoading || resetLoading}>
-                    {view === "login" && "Login"}
-                    {view === "register" && "Register"}
-                    {view === "resetPassword" && "Send Reset Email"}
-                </button>
             </form>
 
+                <div className="buttons">
+                    <button className="auth-button" type="submit" disabled={loginLoading || registerLoading || resetLoading}>
+                        {view === "login" && "Login"}
+                        {view === "register" && "Register"}
+                        {view === "resetPassword" && "Send Reset Email"}
+                    </button>
+
+                    {/* Кнопка Google авторизации */}
+                    <div id="googleAuthButton" >
+                        <GoogleLogin
+                            onSuccess={onSuccess}
+                            onError={() => {
+                                toast.error("Google Login Failed");
+                            }}
+                        />
+                    </div>
+                </div>
+
             {/* Ссылки для переключения между формами */}
-            <div className="toggle-view text-center mt-3">
+            <div className="auth-toggle">
 
 
                 {view === 'login' && (
@@ -97,6 +135,7 @@ const LoginPage = () => {
                 {view === 'resetPassword' && (
                     <a href="#0" onClick={() => setView('login')}>Back to Login</a>
                 )}
+            </div>
             </div>
         </div>
     );

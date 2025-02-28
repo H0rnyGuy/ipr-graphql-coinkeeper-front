@@ -1,0 +1,72 @@
+/* Общие стили для всех форм аутентификации */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #2c2c2c;
+}
+
+.auth-container {
+    background: #3a3a3a;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.auth-form input {
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #2c2c2c;
+    color: #ffffff;
+}
+
+.auth-button {
+    background-color: #5a5a5a;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.auth-button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+}
+
+.auth-toggle {
+    margin-top: 10px;
+}
+
+.auth-toggle a {
+    color: #bbbbbb;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.auth-toggle a:hover {
+    text-decoration: underline;
+}

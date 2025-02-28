@@ -6,12 +6,18 @@ import client from './api/apolloClient';
 import store from './store/store.ts';
 import router from './router.tsx';
 import { RouterProvider } from 'react-router-dom';
+import {GoogleOAuthProvider} from "@react-oauth/google";
+
+const clientId = import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID;
+
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <ApolloProvider client={client}>
             <Provider store={store}>
-                <RouterProvider router={router} />
+                <GoogleOAuthProvider clientId={clientId}>
+                    <RouterProvider router={router} />
+                </GoogleOAuthProvider>
             </Provider>
         </ApolloProvider>
     </React.StrictMode>
