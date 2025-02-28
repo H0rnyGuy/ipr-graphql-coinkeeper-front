@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { RootState } from './store/store';
+import { ToastContainer } from 'react-toastify';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+    const navigate = useNavigate();
+    const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    useEffect(() => {
+        if (!isAuthenticated && !window.location.pathname.includes("/verify-email") && !window.location.pathname.includes("/reset-password")) {
+            navigate("/login");
+        }
+    }, [isAuthenticated, navigate]);
 
-export default App
+    return (
+        <>
+            <Outlet />
+            <ToastContainer position="top-right" autoClose={5000} />
+        </>
+    );
+
+};
+
+export default App;
