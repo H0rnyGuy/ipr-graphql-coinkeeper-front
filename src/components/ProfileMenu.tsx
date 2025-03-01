@@ -4,7 +4,7 @@ import '../styles/ProfileMenu.css';
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { handleLogout } = useLogout();
+    const { handleLogout, loading } = useLogout();
 
     return (
         <div className="profile-menu">
@@ -21,7 +21,10 @@ const ProfileMenu = () => {
                     </button>
 
                     <h3>Profile</h3>
-                    <button onClick={handleLogout}>Logout</button>
+                    <button
+                        onClick={handleLogout}
+                        disabled={loading}
+                    >Logout</button>
                 </div>
             )}
         </div>

@@ -6,6 +6,7 @@ import { useForgotPassword } from '../../hooks/LoginPage/useForgetPassword.ts';
 import '../../styles/LoginPage.css'
 import { gapi } from 'gapi-script';
 import { GoogleLogin } from "@react-oauth/google";
+import {useGoogleLogin} from "../../hooks/LoginPage/useGoogleLogin.ts";
 
 const LoginPage = () => {
     const [view, setView] = useState('login');
@@ -21,6 +22,8 @@ const LoginPage = () => {
     const { register, loading: registerLoading } = useRegister();
 
     const { sendResetEmail, loading: resetLoading } = useForgotPassword();
+
+    const { googleLogin, loading: googleLoading } = useGoogleLogin();
 
     const clientId = import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID;
 
@@ -53,9 +56,11 @@ const LoginPage = () => {
     };
 
     const onSuccess = async (response) => {
-        const googleAccessToken = response.tokenId
+        const googleAccessToken = response.credential
 
-        // googleLogin(googleAccessToken);
+        console.log(response)
+
+        googleLogin(googleAccessToken);
     }
 
     return (
@@ -98,7 +103,7 @@ const LoginPage = () => {
             </form>
 
                 <div className="buttons">
-                    <button className="auth-button" type="submit" disabled={loginLoading || registerLoading || resetLoading}>
+                    <button className="auth-button" type="submit" disabled={loginLoading || registerLoading || resetLoading || googleLoading}>
                         {view === "login" && "Login"}
                         {view === "register" && "Register"}
                         {view === "resetPassword" && "Send Reset Email"}
@@ -106,12 +111,18 @@ const LoginPage = () => {
 
                     {/* Кнопка Google авторизации */}
                     <div id="googleAuthButton" >
-                        <GoogleLogin
-                            onSuccess={onSuccess}
-                            onError={() => {
-                                toast.error("Google Login Failed");
-                            }}
-                        />
+                        {!googleLoading ? (
+                            <GoogleLogin
+                                onSuccess={onSuccess}
+                                onError={() => {
+                                    toast.error("Google Login Failed");
+                                }}
+                            />
+                        ) : (
+                            <button className="google-button-disabled" disabled>
+                                Logging in...
+                            </button>
+                        )}
                     </div>
                 </div>
 
