@@ -1,14 +1,17 @@
 import '../../styles/categories/categoryCard.css'
 import {baseCategoryIcons, customIcon, editedOverlay} from "./categoryIcons.ts";
 
-const CategoryCard = ({ name, description, type, id, defaultCategoryId }) => {
+const CategoryCard = ({ category }) => {
+    const { id, name, description, type, defaultCategoryId } = category;
+
     let iconSrc = customIcon;
     let isEdited = false;
 
-    if (type === 1) {
+
+    if (type === 1 && baseCategoryIcons[id]) {
         iconSrc = baseCategoryIcons[id];
-    } else if (type === 3 && defaultCategoryId) {
-        iconSrc = baseCategoryIcons[defaultCategoryId] || customIcon;
+    } else if (type === 3 && defaultCategoryId && baseCategoryIcons[defaultCategoryId]) {
+        iconSrc = baseCategoryIcons[defaultCategoryId];
         isEdited = true;
     }
 
