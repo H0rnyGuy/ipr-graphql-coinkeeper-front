@@ -80,6 +80,7 @@ const CategoriesPage = () => {
                         onQueryChange={handleSearchChange}
                         handleTypeToggle={handleTypeToggle}
                         handleSearchKeyDown={handleSearchKeyDown}
+                        type = {type}
                     />
                 )}
 

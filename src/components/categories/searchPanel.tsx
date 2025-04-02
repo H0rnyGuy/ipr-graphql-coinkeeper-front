@@ -1,7 +1,7 @@
-import {CategoryTypes} from "./categoryTypes.ts";
+import { CategoryTypes } from "./categoryTypes.ts";
 import '../../styles/categories/searchPanel.css';
 
-const SearchPanel = ({ query, onQueryChange, handleTypeToggle, handleSearchKeyDown }) => {
+const SearchPanel = ({ query, type, onQueryChange, handleTypeToggle, handleSearchKeyDown }) => {
     return (
         <div className="search-panel">
             <input
@@ -13,29 +13,35 @@ const SearchPanel = ({ query, onQueryChange, handleTypeToggle, handleSearchKeyDo
                 className="search-input"
             />
 
-            <label className="search-checkbox">
-                <input
-                    type="checkbox"
-                    onChange={(e) => handleTypeToggle(CategoryTypes.default)}
-                />
-                Show only default categories
-            </label>
+            <div className="filter-buttons">
+                <button
+                    className={`filter-button ${type === CategoryTypes.default ? 'active' : ''}`}
+                    onClick={() => handleTypeToggle(CategoryTypes.default)}
+                >
+                    Default
+                </button>
 
-            <label className="search-checkbox">
-                <input
-                    type="checkbox"
-                    onChange={(e) => handleTypeToggle(CategoryTypes.custom)}
-                />
-                Show only custom categories
-            </label>
+                <button
+                    className={`filter-button ${type === CategoryTypes.custom ? 'active' : ''}`}
+                    onClick={() => handleTypeToggle(CategoryTypes.custom)}
+                >
+                    Custom
+                </button>
 
-            <label className="search-checkbox">
-                <input
-                    type="checkbox"
-                    onChange={(e) => handleTypeToggle(CategoryTypes.edited)}
-                />
-                Show only edited categories
-            </label>
+                <button
+                    className={`filter-button ${type === CategoryTypes.edited ? 'active' : ''}`}
+                    onClick={() => handleTypeToggle(CategoryTypes.edited)}
+                >
+                    Edited
+                </button>
+
+                <button
+                    className={`filter-button ${type === null ? 'active' : ''}`}
+                    onClick={() => handleTypeToggle(null)}
+                >
+                    All
+                </button>
+            </div>
         </div>
     );
 };
