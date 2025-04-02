@@ -5,3 +5,5 @@ export const apolloSessionsClient = createApolloClient("-sessions"); // Для s
 export const apolloUsersClient = createApolloClient("-users"); // Для users
 export const apolloVerificationsClient = createApolloClient("-verifications"); // Для verifications
 
+export const apolloCategoriesClient = createApolloClient("-categories"); // Для categories
+

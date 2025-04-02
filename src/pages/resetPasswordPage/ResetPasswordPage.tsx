@@ -2,8 +2,6 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import { useResetPassword } from '../../hooks/resetPasswordPage/useResetPassword.ts';
 
-let isVerifying = false;
-
 const ResetPasswordPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -19,7 +17,7 @@ const ResetPasswordPage = () => {
         if (resetToken) {
             setToken(resetToken);
         } else {
-            navigate("/login"); // Если токена нет, отправляем на логин
+            navigate("/login");
         }
     }, [location.search, navigate]);
 
@@ -31,7 +29,7 @@ const ResetPasswordPage = () => {
         }
 
         if (password !== confirmPassword) {
-            alert("Пароли не совпадают!");
+            alert("Passwords does not ,atch!");
             return;
         }
 
@@ -40,29 +38,29 @@ const ResetPasswordPage = () => {
 
     return (
         <div className="reset-password-page">
-            <h2>Сброс пароля</h2>
+            <h2>Password reset</h2>
             {token ? (
                 <form onSubmit={handleSubmit}>
                     <input
                         type="password"
-                        placeholder="Введите новый пароль"
+                        placeholder="Enter password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <input
                         type="password"
-                        placeholder="Подтвердите пароль"
+                        placeholder="Confirm password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
                     <button type="submit" disabled={loading}>
-                        {loading ? "Сбрасываем..." : "Сбросить пароль"}
+                        {loading ? "Resetting..." : "Reset password"}
                     </button>
                 </form>
             ) : (
-                <p>Ошибка: отсутствует токен.</p>
+                <p>Error: token is missing.</p>
             )}
         </div>
     );

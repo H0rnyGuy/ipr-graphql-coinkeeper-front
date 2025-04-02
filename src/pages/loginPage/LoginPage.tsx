@@ -29,7 +29,6 @@ const LoginPage = () => {
 
     useEffect(() => {
         function start() {
-            console.log(clientId)
             gapi.client.init({
                 clientId: clientId,
                 scope: "openid"
@@ -40,6 +39,7 @@ const LoginPage = () => {
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
+        console.log('view:', view)
         e.preventDefault();
 
         if (view === "register") {
@@ -58,8 +58,6 @@ const LoginPage = () => {
     const onSuccess = async (response) => {
         const googleAccessToken = response.credential
 
-        console.log(response)
-
         googleLogin(googleAccessToken);
     }
 
@@ -74,7 +72,7 @@ const LoginPage = () => {
                 </h2>
 
 
-            <form className="auth-form" onSubmit={handleSubmit}>
+            <form className="auth-form">
                 {/* Форма для логина */}
                 {view === "login" && (
                     <>
@@ -103,7 +101,7 @@ const LoginPage = () => {
             </form>
 
                 <div className="buttons">
-                    <button className="auth-button" type="submit" disabled={loginLoading || registerLoading || resetLoading || googleLoading}>
+                    <button className="auth-button" type="submit" onClick={handleSubmit} disabled={loginLoading || registerLoading || resetLoading || googleLoading}>
                         {view === "login" && "Login"}
                         {view === "register" && "Register"}
                         {view === "resetPassword" && "Send Reset Email"}
