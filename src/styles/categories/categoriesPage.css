@@ -1,3 +1,24 @@
+.categories-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.search-toggle-button {
+    background-color: transparent;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: white;
+    padding: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-toggle-button:hover {
+    background-color: #444;
+}
+
 .categories-grid-wrapper {
     background-color: #1e1e1e;
     border-radius: 10px;

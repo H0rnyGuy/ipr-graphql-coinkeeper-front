@@ -39,7 +39,6 @@ const LoginPage = () => {
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
-        console.log('view:', view)
         e.preventDefault();
 
         if (view === "register") {
