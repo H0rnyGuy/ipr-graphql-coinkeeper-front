@@ -8,6 +8,7 @@ import SearchPanel from "../../components/categories/SearchPanel.tsx";
 import { FiSearch } from "react-icons/fi";
 
 import '../../styles/categories/categoriesPage.css';
+import CreateCategoryModal from "../../components/categories/сreateCategoryModal.tsx";
 
 const CategoriesPage = () => {
     const isLogged = useIsLogged();
@@ -19,11 +20,13 @@ const CategoriesPage = () => {
 
     const [searchOpen, setSearchOpen] = useState(false);
 
+    const [showModal, setShowModal] = useState(false);
+
     const limit = 12;
 
     const [type, setType] = useState(null)
 
-    const { data: categories, pagination, loading } = useCategories({ offset, limit, q: searchQuery, byType: type });
+    const { data: categories, pagination, loading, refetch } = useCategories({ offset, limit, q: searchQuery, byType: type });
 
     const currentPage = offset / limit + 1;
     const totalPages = Math.ceil((pagination.totalCount || 0) / limit);
@@ -62,6 +65,10 @@ const CategoriesPage = () => {
         setOffset(0);
     };
 
+    const handleCreated = () => {
+        refetch();
+    };
+
     return (
         <div>
             <ProfileMenu />
@@ -69,7 +76,7 @@ const CategoriesPage = () => {
             <div className="categories-grid-wrapper">
                 <div className="categories-header">
                     <div className="page-title">Categories</div>
-                    <button className="search-toggle-button" onClick={() => setSearchOpen(prev => !prev)}>
+                    <button className={`search-toggle-button ${ searchOpen ? 'active' : ''}`} onClick={() => setSearchOpen(prev => !prev)}>
                         <FiSearch size={20} />
                     </button>
                 </div>
@@ -88,7 +95,7 @@ const CategoriesPage = () => {
                     <p>Loading...</p>
                 ) : (
                     <>
-                        <CategoryGrid categories={categories} />
+                        <CategoryGrid categories={categories} onAddClick={() => setShowModal(true)} />
                         <div className="pagination-wrapper">
                             <PaginationDots
                                 currentPage={currentPage}
@@ -100,6 +107,13 @@ const CategoriesPage = () => {
                     </>
                 )}
             </div>
+
+            {showModal && (
+                <CreateCategoryModal
+                    onClose={() => setShowModal(false)}
+                    onCreated={handleCreated}
+                />
+            )}
         </div>
     );
 };

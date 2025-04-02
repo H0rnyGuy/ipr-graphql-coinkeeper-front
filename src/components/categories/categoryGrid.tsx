@@ -1,12 +1,16 @@
 import CategoryCard from "./CategoryCard";
 import '../../styles/categories/categoryGrid.css'
 
-const CategoryGrid = ({categories}) => {
+const CategoryGrid = ({categories, onAddClick }) => {
     return (
         <div className="categories-grid">
             {categories.map((cat) => (
                 <CategoryCard key={cat.id} category={cat} />
             ))}
+
+            <div className="category-card empty-card" onClick={onAddClick}>
+                +
+            </div>
         </div>
     );
 };

@@ -21,3 +21,17 @@ export const GET_CATEGORIES = gql`
 		}
 	}
 `;
+
+export const CREATE_CATEGORY = gql`
+	mutation create($data: CreateCategoryDto!) {
+		create(data: $data) {
+			id
+			userId
+			name
+			description
+			type
+			createdAt
+			updatedAt
+		}
+	}
+`;
