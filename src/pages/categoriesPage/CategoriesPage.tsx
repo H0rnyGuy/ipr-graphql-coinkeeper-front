@@ -4,11 +4,12 @@ import ProfileMenu from "../../components/ProfileMenu.tsx";
 import PaginationDots from "../../components/PaginationDots.tsx";
 import { useCategories } from "../../hooks/categoriesPage/useCategories.ts";
 import CategoryGrid from "../../components/categories/categoryGrid.tsx";
+import '../../styles/categories/categoriesPage.css'
 
 const CategoriesPage = () => {
     const isLogged = useIsLogged();
     const [offset, setOffset] = useState(0);
-    const limit = 2;
+    const limit = 12;
 
     const { data: categories, pagination, loading } = useCategories({ offset, limit });
 
@@ -31,23 +32,31 @@ const CategoriesPage = () => {
     };
 
     return (
-        <div className="p-6">
+        <div>
             <ProfileMenu />
-            <h1 className="text-2xl font-bold mb-4">Categories</h1>
-
+            <div className="categories-grid-wrapper">
             {loading ? (
-                <p>Loading...</p>
+                <div>
+                    <div className="page-title">Categories</div>
+                    <p>Loading...</p>
+                </div>
             ) : (
-                <>
+                <div >
+                    <div className="page-title">Categories</div>
+
                     <CategoryGrid categories={categories} />
-                    <PaginationDots
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPrev={handlePrevPage}
-                        onNext={handleNextPage}
-                    />
-                </>
+                    <div className="pagination-wrapper">
+                        <PaginationDots
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPrev={handlePrevPage}
+                            onNext={handleNextPage}
+                        />
+                    </div>
+                </div>
             )}
+            </div>
+
         </div>
     );
 };

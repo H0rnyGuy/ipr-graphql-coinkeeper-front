@@ -1,0 +1,40 @@
+.categories-grid-wrapper {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+/*Pagination*/
+.pagination-wrapper {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: #ccc;
+}
+
+.pagination-wrapper button {
+    background: #444;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.pagination-wrapper button:disabled {
+    background: #666;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.pagination-wrapper button:hover:not(:disabled) {
+    background: #5a5a5a;
+}

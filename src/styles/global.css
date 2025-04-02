@@ -55,8 +55,12 @@
     font-weight: bold;
 }
 
-.button-hover {
-
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .button:disabled {

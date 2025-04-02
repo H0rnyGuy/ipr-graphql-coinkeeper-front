@@ -1,13 +1,17 @@
 import CategoryCard from "./CategoryCard";
+import '../../styles/categories/categoryGrid.css'
 
 const CategoryGrid = ({categories}) => {
     return (
-        <div className="grid grid-cols-3 gap-4">
-            {categories.map(cat => (
+        <div className="categories-grid">
+            {categories.map((cat) => (
                 <CategoryCard
                     key={cat.id}
                     name={cat.name}
                     description={cat.description}
+                    type={cat.type}
+                    id={cat.id}
+                    defaultCategoryId={cat.defaultCategoryId}
                 />
             ))}
         </div>
