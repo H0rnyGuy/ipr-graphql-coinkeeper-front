@@ -11,6 +11,7 @@ import '../../styles/categories/categoriesPage.css';
 import CreateCategoryModal from "../../components/categories/createCategoryModal.tsx";
 import {CategoryTypes} from "../../components/categories/categoryTypes.ts";
 import UpdateCategoryModal from "../../components/categories/UpdateCategoryModal.tsx";
+import ConfirmDeleteModal from "../../components/categories/ConfirmDeleteModal.tsx";
 
 const CategoriesPage = () => {
     const isLogged = useIsLogged();
@@ -34,6 +35,9 @@ const CategoriesPage = () => {
     const [localCategories, setLocalCategories] = useState([]);
 
     const { data: categories, pagination, loading, refetch } = useCategories({ offset, limit, q: searchQuery, byType: type });
+
+    const [deletingCategory, setDeletingCategory] = useState(null);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     const currentPage = offset / limit + 1;
     const totalPages = Math.ceil((pagination.totalCount || 0) / limit);
@@ -88,7 +92,6 @@ const CategoriesPage = () => {
     };
 
     const handleCategoryUpdated = (updated) => {
-        console.log('updated:', updated)
         if (updated.type === CategoryTypes.edited) {
             refetch();
         } else {
@@ -96,6 +99,28 @@ const CategoriesPage = () => {
                 prev.map(cat => cat.id === updated.id ? updated : cat)
             );
         }
+    };
+
+    const handleCancelUpdate = () => {
+        setEditModalOpen(false)
+    }
+
+    const handleCategoryDeleted = (deleted) => {
+        console.log('deleted:', deleted)
+        if (deleted.type === CategoryTypes.edited) {
+            refetch();
+        } else {
+            setLocalCategories(prev => prev.filter(cat => cat.id !== deleted.id));
+        }
+    };
+
+    const handleDeleteCategory = (category) => {
+        setDeletingCategory(category);
+        setDeleteModalOpen(true);
+    };
+
+    const handleCancelDelete = () => {
+        setDeleteModalOpen(false);
     };
 
     return (
@@ -124,7 +149,12 @@ const CategoriesPage = () => {
                     <p>Loading...</p>
                 ) : (
                     <>
-                        <CategoryGrid categories={localCategories} onAddClick={() => setShowModal(true)} onEdit={handleEditCategory}/>
+                        <CategoryGrid
+                            categories={localCategories}
+                            onAddClick={() => setShowModal(true)}
+                            onEdit={handleEditCategory}
+                            onDelete={handleDeleteCategory}
+                        />
                         <div className="pagination-wrapper">
                             <PaginationDots
                                 currentPage={currentPage}
@@ -147,10 +177,19 @@ const CategoriesPage = () => {
             {editModalOpen && editingCategory && (
                 <UpdateCategoryModal
                     category={editingCategory}
-                    onClose={() => setEditModalOpen(false)}
+                    onClose={handleCancelUpdate}
                     onUpdated={handleCategoryUpdated}
                 />
             )}
+
+            {deleteModalOpen && deletingCategory && (
+                <ConfirmDeleteModal
+                    category={deletingCategory}
+                    onClose={handleCancelDelete}
+                    onDeleted={handleCategoryDeleted}
+                />
+            )}
+
         </div>
     );
 };

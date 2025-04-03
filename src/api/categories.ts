@@ -51,3 +51,11 @@ export const UPDATE_CATEGORY = gql`
 		}
 	}
 `;
+
+export const DELETE_CATEGORY = gql`
+	mutation delete($data: EntityByIdDto!) {
+		delete(data: $data) {
+			success
+		}
+	}
+`;

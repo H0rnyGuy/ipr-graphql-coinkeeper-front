@@ -4,11 +4,15 @@ import {CategoryTypes} from "./categoryTypes.ts";
 import {useState} from "react";
 import {FiMoreVertical} from "react-icons/fi";
 
-const CategoryCard = ({ category, onEdit }) => {
+const CategoryCard = ({ category, onEdit, onDelete, deleteLoading}) => {
     const { id, name, description, type, defaultCategoryId } = category;
 
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => setMenuOpen(prev => !prev);
+
+    const handleDelete = () => {
+        onDelete(category);
+    };
 
     let iconSrc = customIcon;
     let isEdited = false;
@@ -43,9 +47,14 @@ const CategoryCard = ({ category, onEdit }) => {
                 {menuOpen && (
                     <div className="menu-dropdown">
                         <button onClick={() => onEdit(category)}>Edit</button>
-                        {/* <button onClick={() => onDelete(category.id)}>Delete</button> */}
+                        {type !== CategoryTypes.default && (
+                            <button onClick={handleDelete} disabled={deleteLoading}>
+                                {deleteLoading ? "Deleting..." : "Delete"}
+                            </button>
+                        )}
                     </div>
                 )}
+
             </div>
 
         </div>

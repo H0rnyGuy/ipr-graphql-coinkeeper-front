@@ -1,0 +1,89 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background-color: #2e2e2e;
+    padding: 24px 28px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+.modal-content .modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.modal-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #666;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-actions button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+}
+
+.modal-actions button[type="button"] {
+    background-color: #555;
+}
+
+.modal-actions button[type="button"]:hover {
+    background-color: #777;
+}
+
+.modal-actions button[type="submit"]:hover {
+    background-color: #4f46e5;
+}
+
+.category-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 17vw;
+    word-wrap: break-word;
+}
+
+.category-card-dexcription {
+    font-size: 14px;
+    color: #ccc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-width: 180px;
+}
