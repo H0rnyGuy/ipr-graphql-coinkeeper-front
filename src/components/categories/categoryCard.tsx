@@ -1,17 +1,21 @@
 import '../../styles/categories/categoryCard.css'
 import {baseCategoryIcons, customIcon, editedOverlay} from "./categoryIcons.ts";
 import {CategoryTypes} from "./categoryTypes.ts";
+import {useState} from "react";
+import {FiMoreVertical} from "react-icons/fi";
 
-const CategoryCard = ({ category }) => {
+const CategoryCard = ({ category, onEdit }) => {
     const { id, name, description, type, defaultCategoryId } = category;
+
+    const [menuOpen, setMenuOpen] = useState(false);
+    const toggleMenu = () => setMenuOpen(prev => !prev);
 
     let iconSrc = customIcon;
     let isEdited = false;
 
-
     if (type === CategoryTypes.default && baseCategoryIcons[id]) {
         iconSrc = baseCategoryIcons[id];
-    } else if (type === CategoryTypes.custom && defaultCategoryId && baseCategoryIcons[defaultCategoryId]) {
+    } else if (type === CategoryTypes.edited && defaultCategoryId && baseCategoryIcons[defaultCategoryId]) {
         iconSrc = baseCategoryIcons[defaultCategoryId];
         isEdited = true;
     }
@@ -29,6 +33,19 @@ const CategoryCard = ({ category }) => {
             <div>
                 <div className="category-card-title">{name}</div>
                 <div className="category-card-dexcription">{description}</div>
+            </div>
+
+            <div className="menu-container">
+                <button className="menu-button" onClick={toggleMenu}>
+                    <FiMoreVertical />
+                </button>
+
+                {menuOpen && (
+                    <div className="menu-dropdown">
+                        <button onClick={() => onEdit(category)}>Edit</button>
+                        {/* <button onClick={() => onDelete(category.id)}>Delete</button> */}
+                    </div>
+                )}
             </div>
 
         </div>

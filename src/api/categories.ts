@@ -29,6 +29,22 @@ export const CREATE_CATEGORY = gql`
 			userId
 			name
 			description
+			defaultCategoryId
+			type
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const UPDATE_CATEGORY = gql`
+	mutation update($data: UpdateCategoryDto!) {
+		update(data: $data) {
+			id
+			userId
+			name
+			description
+			defaultCategoryId
 			type
 			createdAt
 			updatedAt

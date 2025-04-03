@@ -8,7 +8,9 @@ import SearchPanel from "../../components/categories/SearchPanel.tsx";
 import { FiSearch } from "react-icons/fi";
 
 import '../../styles/categories/categoriesPage.css';
-import CreateCategoryModal from "../../components/categories/сreateCategoryModal.tsx";
+import CreateCategoryModal from "../../components/categories/createCategoryModal.tsx";
+import {CategoryTypes} from "../../components/categories/categoryTypes.ts";
+import UpdateCategoryModal from "../../components/categories/UpdateCategoryModal.tsx";
 
 const CategoriesPage = () => {
     const isLogged = useIsLogged();
@@ -26,6 +28,11 @@ const CategoriesPage = () => {
 
     const [type, setType] = useState(null)
 
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editingCategory, setEditingCategory] = useState(null);
+
+    const [localCategories, setLocalCategories] = useState([]);
+
     const { data: categories, pagination, loading, refetch } = useCategories({ offset, limit, q: searchQuery, byType: type });
 
     const currentPage = offset / limit + 1;
@@ -34,6 +41,12 @@ const CategoriesPage = () => {
     useEffect(() => {
         isLogged();
     }, []);
+
+    useEffect(() => {
+        if (!loading && categories.length) {
+            setLocalCategories(categories);
+        }
+    }, [categories, loading]);
 
     const handlePrevPage = () => {
         if (offset > 0) setOffset(offset - limit);
@@ -69,6 +82,22 @@ const CategoriesPage = () => {
         refetch();
     };
 
+    const handleEditCategory = (category) => {
+        setEditingCategory(category);
+        setEditModalOpen(true);
+    };
+
+    const handleCategoryUpdated = (updated) => {
+        console.log('updated:', updated)
+        if (updated.type === CategoryTypes.edited) {
+            refetch();
+        } else {
+            setLocalCategories(prev =>
+                prev.map(cat => cat.id === updated.id ? updated : cat)
+            );
+        }
+    };
+
     return (
         <div>
             <ProfileMenu />
@@ -95,7 +124,7 @@ const CategoriesPage = () => {
                     <p>Loading...</p>
                 ) : (
                     <>
-                        <CategoryGrid categories={categories} onAddClick={() => setShowModal(true)} />
+                        <CategoryGrid categories={localCategories} onAddClick={() => setShowModal(true)} onEdit={handleEditCategory}/>
                         <div className="pagination-wrapper">
                             <PaginationDots
                                 currentPage={currentPage}
@@ -112,6 +141,14 @@ const CategoriesPage = () => {
                 <CreateCategoryModal
                     onClose={() => setShowModal(false)}
                     onCreated={handleCreated}
+                />
+            )}
+
+            {editModalOpen && editingCategory && (
+                <UpdateCategoryModal
+                    category={editingCategory}
+                    onClose={() => setEditModalOpen(false)}
+                    onUpdated={handleCategoryUpdated}
                 />
             )}
         </div>
