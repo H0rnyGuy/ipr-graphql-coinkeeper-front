@@ -59,3 +59,18 @@ export const DELETE_CATEGORY = gql`
 		}
 	}
 `;
+
+export const GET_CATEGORY = gql`
+	query get($data: EntityByIdDto!) {
+		get(data: $data) {
+			id
+			userId
+			name
+			description
+			defaultCategoryId
+			type
+			createdAt
+			updatedAt
+		}
+	}
+`;

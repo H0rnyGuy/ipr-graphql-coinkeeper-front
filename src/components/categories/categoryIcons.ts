@@ -16,4 +16,13 @@ export const baseCategoryIcons: Record<number, string> = {
     6: educationIcon,
 };
 
+export const CategoryNames: Record<number, string> = {
+    1: "Food",
+    2: "Transport",
+    3: "Housing",
+    4: "Entertainment",
+    5: "Health",
+    6: "Education",
+};
+
 export { customIcon, editedOverlay };

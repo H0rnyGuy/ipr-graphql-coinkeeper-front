@@ -3,6 +3,7 @@ import {baseCategoryIcons, customIcon, editedOverlay} from "./categoryIcons.ts";
 import {CategoryTypes} from "./categoryTypes.ts";
 import {useState} from "react";
 import {FiMoreVertical} from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const CategoryCard = ({ category, onEdit, onDelete, deleteLoading}) => {
     const { id, name, description, type, defaultCategoryId } = category;
@@ -35,7 +36,14 @@ const CategoryCard = ({ category, onEdit, onDelete, deleteLoading}) => {
             </div>
 
             <div>
-                <div className="category-card-title">{name}</div>
+                <Link
+                    to={`/categories/${id}`}
+                    state={{ category }}
+                    className="category-card-title"
+                >
+                    {name}
+                </Link>
+
                 <div className="category-card-dexcription">{description}</div>
             </div>
 

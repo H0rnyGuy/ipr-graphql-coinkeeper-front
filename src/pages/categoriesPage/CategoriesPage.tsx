@@ -106,7 +106,6 @@ const CategoriesPage = () => {
     }
 
     const handleCategoryDeleted = (deleted) => {
-        console.log('deleted:', deleted)
         if (deleted.type === CategoryTypes.edited) {
             refetch();
         } else {

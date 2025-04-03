@@ -25,8 +25,21 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 17vw;
+    max-width: 100%;
     word-wrap: break-word;
+    display: inline-block;
+}
+
+.category-card a {
+    color: #fff;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.category-card a:hover {
+    color: #4f46e5;
+    text-decoration: underline;
 }
 
 .category-card-dexcription {
