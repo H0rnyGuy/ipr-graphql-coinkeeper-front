@@ -9,6 +9,31 @@ export const LOGIN_MUTATION = gql`
   }
 `;
 
+export const GOOGLE_LOGIN_MUTATION = gql`
+    mutation google_login($data: GoogleAccessTokenDto!) {
+      google_login(data: $data) {
+        user {
+            id
+            email
+            isVerified
+            username
+            firstName
+            lastName
+            role
+            createdAt
+            updatedAt
+        }
+        session {
+            accessToken
+            refreshToken
+            expiresAt
+        }
+    
+        googlePicture
+      }
+    }
+`;
+
 export const LOGOUT_MUTATION = gql`
     mutation session_logout {
       session_logout {

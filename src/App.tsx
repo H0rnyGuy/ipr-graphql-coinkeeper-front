@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { RootState } from './store/store';
 import { ToastContainer } from 'react-toastify';
+import './styles/global.css'
 
 const App = () => {
     const navigate = useNavigate();
