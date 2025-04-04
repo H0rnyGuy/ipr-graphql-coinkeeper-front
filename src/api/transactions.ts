@@ -47,3 +47,18 @@ export const DELETE_TRANSACTION = gql`
     }
 `;
 
+export const UPDATE_TRANSACTION = gql`
+    mutation update($data: UpdateTransactionDto!) {
+      update(data: $data) {
+            id
+            userId
+            categoryId
+            description
+            type
+            amount
+            transactionDate
+            createdAt
+            updatedAt
+      }
+    }
+`;

@@ -11,6 +11,7 @@ import {TransactionFilters} from '../../components/transactions/TransactionFilte
 import {CategoryBalance, CategoryBalanceHandle} from "../../components/transactions/CategoryBalance.tsx";
 import {CreateTransactionModal} from "../../components/transactions/CreateTransactionModal.tsx";
 import ConfirmDeleteModal from "../../components/transactions/ConfirmDeleteModal.tsx";
+import UpdateTransactionModal from "../../components/transactions/UpdateTransactionModal.tsx";
 
 const CategoryPage = () => {
     const { id } = useParams();
@@ -21,7 +22,7 @@ const CategoryPage = () => {
 
     const [category, setCategory] = useState(location.state?.category || null);
 
-    const { category: fetchedCategory, loading, refetch } = useCategory({ id: numericId, skip: !!category });
+    const { category: fetchedCategory, loading } = useCategory({ id: numericId, skip: !!category });
 
     const [filters, setFilters] = useState({});
 
@@ -34,6 +35,9 @@ const CategoryPage = () => {
 
     const [deletingTransaction, setDeletingTransaction] = useState(null);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+    const [updatingTransaction, setUpdatingTransaction] = useState(null);
+    const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
     useEffect(() => {
         isLogged();
@@ -74,6 +78,22 @@ const CategoryPage = () => {
 
     const handleTransactionDeleted = () => {
         closeDeleteModal();
+        transactionsRef.current?.refetch();
+        balanceRef.current?.refetch();
+    };
+
+    const handleEditTransaction = (transaction) => {
+        setUpdatingTransaction(transaction);
+        setUpdateModalOpen(true);
+    };
+
+    const closeUpdateModal = () => {
+        setUpdateModalOpen(false);
+        setUpdatingTransaction(null);
+    };
+
+    const handleTransactionUpdated = () => {
+        closeUpdateModal();
         transactionsRef.current?.refetch();
         balanceRef.current?.refetch();
     };
@@ -136,6 +156,7 @@ const CategoryPage = () => {
                                     categoryId={category.id}
                                     filters={filters}
                                     onDelete={handleDeleteTransaction}
+                                    onEdit={handleEditTransaction}
                                 />
                             </>
                         )}
@@ -158,6 +179,14 @@ const CategoryPage = () => {
                     transaction={deletingTransaction}
                     onClose={closeDeleteModal}
                     onDeleted={handleTransactionDeleted}
+                />
+            )}
+
+            {updateModalOpen && updatingTransaction && (
+                <UpdateTransactionModal
+                    transaction={updatingTransaction}
+                    onClose={closeUpdateModal}
+                    onUpdated={handleTransactionUpdated}
                 />
             )}
 

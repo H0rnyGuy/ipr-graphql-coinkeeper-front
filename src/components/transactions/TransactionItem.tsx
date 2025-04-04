@@ -2,7 +2,7 @@ import {useState} from "react";
 import {FiMoreVertical} from "react-icons/fi";
 import '../../styles/transactions/TransactionItem.css'
 
-export const TransactionItem = ({ transaction, onDelete }) => {
+export const TransactionItem = ({ transaction, onDelete, onEdit }) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -10,6 +10,11 @@ export const TransactionItem = ({ transaction, onDelete }) => {
     const handleDeleteClick = () => {
         setMenuOpen(false);
         onDelete?.(transaction);
+    };
+
+    const handleEditClick = () => {
+        setMenuOpen(false);
+        onEdit?.(transaction);
     };
 
     return (
@@ -26,7 +31,7 @@ export const TransactionItem = ({ transaction, onDelete }) => {
 
                 {menuOpen && (
                     <div className="menu-dropdown">
-                        {/*<button onClick={() => onEdit(category)}>Edit</button>*/}
+                        <button onClick={handleEditClick}>Edit</button>
                         <button onClick={handleDeleteClick}>Delete</button>
                     </div>
                 )}

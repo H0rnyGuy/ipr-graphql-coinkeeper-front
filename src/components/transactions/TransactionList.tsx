@@ -12,12 +12,13 @@ export type TransactionListProps = {
     categoryId: number;
     filters: any;
     onDelete: any;
+    onEdit: any;
 };
 
 const PAGE_SIZE = 10;
 
 const TransactionListInner = (
-    { categoryId, filters, onDelete }: TransactionListProps,
+    { categoryId, filters, onDelete, onEdit }: TransactionListProps,
     ref: React.Ref<TransactionListHandle>
 ) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -58,6 +59,7 @@ const TransactionListInner = (
                         key={t.id}
                         transaction={t}
                         onDelete={onDelete}
+                        onEdit={onEdit}
                     />
                 ))}
             </div>
