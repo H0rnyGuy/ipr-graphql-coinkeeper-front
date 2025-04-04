@@ -1,4 +1,3 @@
-// hooks/categoriesPage/useDeleteCategory.ts
 import { useMutation } from "@apollo/client";
 import { DELETE_CATEGORY } from "../../api/categories";
 import { toast } from "react-toastify";

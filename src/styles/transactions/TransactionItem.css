@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: relative;
 }
 
 .transaction-desc {
@@ -30,4 +31,52 @@
 .transaction-date {
     font-size: 0.8rem;
     color: #bbb;
+}
+
+.menu-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.menu-button:hover {
+    color: #4f46e5;
+}
+
+.menu-dropdown {
+    background-color: #333;
+    border-radius: 5px;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+    z-index: 10;
+}
+
+.menu-dropdown button {
+    background: transparent;
+    color: white;
+    padding: 8px;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.menu-dropdown button:hover {
+    background-color: #4f46e5;
 }

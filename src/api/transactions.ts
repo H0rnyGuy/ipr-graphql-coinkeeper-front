@@ -38,3 +38,12 @@ export const CREATE_TRANSACTION = gql`
       }
     }
 `;
+
+export const DELETE_TRANSACTION = gql`
+    mutation delete($data: EntityByIdDto!) {
+      delete(data: $data) {
+        success
+      }
+    }
+`;
+

@@ -2,6 +2,7 @@ import { useState, forwardRef, useImperativeHandle } from "react";
 import { useTransactions } from "../../hooks/categoryPage/useTransactions.ts";
 import { TransactionItem } from "./TransactionItem.tsx";
 import PaginationDots from "../PaginationDots";
+import '../../styles/transactions/TransactionList.css'
 
 export type TransactionListHandle = {
     refetch: () => void;
@@ -10,12 +11,13 @@ export type TransactionListHandle = {
 export type TransactionListProps = {
     categoryId: number;
     filters: any;
+    onDelete: any;
 };
 
 const PAGE_SIZE = 10;
 
 const TransactionListInner = (
-    { categoryId, filters }: TransactionListProps,
+    { categoryId, filters, onDelete }: TransactionListProps,
     ref: React.Ref<TransactionListHandle>
 ) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -52,7 +54,11 @@ const TransactionListInner = (
         <div className="transaction-list-wrapper">
             <div className="transaction-list">
                 {transactions.map((t) => (
-                    <TransactionItem key={t.id} transaction={t} />
+                    <TransactionItem
+                        key={t.id}
+                        transaction={t}
+                        onDelete={onDelete}
+                    />
                 ))}
             </div>
 

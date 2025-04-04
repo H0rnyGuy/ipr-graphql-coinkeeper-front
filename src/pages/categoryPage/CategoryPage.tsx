@@ -10,6 +10,7 @@ import {TransactionList, TransactionListHandle} from '../../components/transacti
 import {TransactionFilters} from '../../components/transactions/TransactionFilters.tsx'
 import {CategoryBalance, CategoryBalanceHandle} from "../../components/transactions/CategoryBalance.tsx";
 import {CreateTransactionModal} from "../../components/transactions/CreateTransactionModal.tsx";
+import ConfirmDeleteModal from "../../components/transactions/ConfirmDeleteModal.tsx";
 
 const CategoryPage = () => {
     const { id } = useParams();
@@ -31,6 +32,8 @@ const CategoryPage = () => {
     const transactionsRef = useRef<TransactionListHandle>(null);
     const balanceRef = useRef<CategoryBalanceHandle>(null);
 
+    const [deletingTransaction, setDeletingTransaction] = useState(null);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     useEffect(() => {
         isLogged();
@@ -55,6 +58,22 @@ const CategoryPage = () => {
     };
 
     const forceRefetch = () => {
+        transactionsRef.current?.refetch();
+        balanceRef.current?.refetch();
+    };
+
+    const handleDeleteTransaction = (transaction) => {
+        setDeletingTransaction(transaction);
+        setDeleteModalOpen(true);
+    };
+
+    const closeDeleteModal = () => {
+        setDeleteModalOpen(false);
+        setDeletingTransaction(null);
+    };
+
+    const handleTransactionDeleted = () => {
+        closeDeleteModal();
         transactionsRef.current?.refetch();
         balanceRef.current?.refetch();
     };
@@ -116,6 +135,7 @@ const CategoryPage = () => {
                                     ref={transactionsRef}
                                     categoryId={category.id}
                                     filters={filters}
+                                    onDelete={handleDeleteTransaction}
                                 />
                             </>
                         )}
@@ -130,6 +150,14 @@ const CategoryPage = () => {
                     onSuccess={() => {
                         forceRefetch();
                     }}
+                />
+            )}
+
+            {deleteModalOpen && deletingTransaction && (
+                <ConfirmDeleteModal
+                    transaction={deletingTransaction}
+                    onClose={closeDeleteModal}
+                    onDeleted={handleTransactionDeleted}
                 />
             )}
 
