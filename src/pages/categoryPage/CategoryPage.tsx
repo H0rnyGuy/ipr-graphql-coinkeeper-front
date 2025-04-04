@@ -6,6 +6,8 @@ import {useCategory} from "../../hooks/categoryPage/useCategory.ts";
 import {CategoryNames} from "../../components/categories/categoryIcons.ts";
 import {CategoryTypes, CategoryTypeText} from "../../components/categories/categoryTypes.ts";
 import '../../styles/category/categoryPage.css'
+import {TransactionList} from '../../components/transactions/TransactionList.tsx'
+import {TransactionFilters} from '../../components/transactions/TransactionFilters.tsx'
 
 const CategoryPage = () => {
     const { id } = useParams();
@@ -18,17 +20,18 @@ const CategoryPage = () => {
 
     const { category: fetchedCategory, loading, error, refetch } = useCategory({ id: numericId, skip: !!category });
 
+    const [filters, setFilters] = useState({});
+
     useEffect(() => {
         isLogged();
     }, []);
 
     useEffect(() => {
-        console.log('fetchedCategory:', fetchedCategory)
 
-        console.log('category:', category)
         if (fetchedCategory && !category) {
             setCategory(fetchedCategory);
         }
+
     }, [fetchedCategory, category]);
 
     const getCategoryTypeText = (type: CategoryTypes) => CategoryTypeText[type];
@@ -77,7 +80,8 @@ const CategoryPage = () => {
 
                         {/* Список транзакций */}
                         <div className="transaction-list">
-                            {/* транзакции */}
+                            <TransactionFilters onChange={setFilters} />
+                            <TransactionList categoryId={category.id} filters={filters} />
                         </div>
                     </div>
                 )

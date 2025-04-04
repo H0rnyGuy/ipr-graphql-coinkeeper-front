@@ -4,6 +4,7 @@ export const apolloClient = createApolloClient(); // Для стандартны
 export const apolloSessionsClient = createApolloClient("-sessions"); // Для sessions
 export const apolloUsersClient = createApolloClient("-users"); // Для users
 export const apolloVerificationsClient = createApolloClient("-verifications"); // Для verifications
-
 export const apolloCategoriesClient = createApolloClient("-categories"); // Для categories
+export const apolloTransactionsClient = createApolloClient("-transactions"); // Для transactions
+export const apolloDashboardClient = createApolloClient("-dashboard"); // Для dashboard
 
