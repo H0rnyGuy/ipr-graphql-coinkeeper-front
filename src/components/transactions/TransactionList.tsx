@@ -19,7 +19,12 @@ const TransactionListInner = (
     ref: React.Ref<TransactionListHandle>
 ) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const offset = (currentPage - 1) * PAGE_SIZE;
+    const [offset, setOffset] = useState(0);
+
+    const goToPage = (page: number) => {
+        setCurrentPage(page);
+        setOffset((page - 1) * PAGE_SIZE);
+    };
 
     const { data: transactions, pagination, loading, refetch } = useTransactions({
         byCategoriesId: [categoryId],
@@ -30,15 +35,15 @@ const TransactionListInner = (
 
     useImperativeHandle(ref, () => ({
         refetch: () => {
+            goToPage(1);
             refetch();
-            setCurrentPage(1);
         },
     }));
 
     const totalPages = Math.ceil((pagination?.totalCount || 0) / PAGE_SIZE);
 
-    const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-    const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    const handlePrev = () => goToPage(Math.max(currentPage - 1, 1));
+    const handleNext = () => goToPage(Math.min(currentPage + 1, totalPages));
 
     if (loading) return <p>Loading transactions...</p>;
     if (!transactions.length) return <p>No transactions found.</p>;
