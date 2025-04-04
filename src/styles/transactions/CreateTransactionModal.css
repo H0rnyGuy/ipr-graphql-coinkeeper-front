@@ -76,17 +76,8 @@
 }
 
 
+
 /* Стилизация DatePicker */
-.custom-calendar {
-    background-color: #333;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    color: white;
-    max-height: 350px;
-    overflow-y: auto;
-    border: 2px solid #444;
-}
 
 /* Заголовок календаря */
 .react-datepicker__header {
