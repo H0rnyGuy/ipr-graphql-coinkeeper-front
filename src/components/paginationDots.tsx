@@ -1,10 +1,11 @@
+import '../styles/categories/paginationDots.css'
+
 const PaginationDots = ({ currentPage, totalPages, onPrev, onNext }) => {
     return (
-        <div className="flex items-center justify-center mt-6 gap-4 text-sm text-gray-700">
+        <div className="pagination-wrapper">
             <button
                 onClick={onPrev}
                 disabled={currentPage === 1}
-                className="px-3 py-1 border rounded disabled:opacity-50"
             >
                 ←
             </button>
@@ -16,7 +17,6 @@ const PaginationDots = ({ currentPage, totalPages, onPrev, onNext }) => {
             <button
                 onClick={onNext}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 border rounded disabled:opacity-50"
             >
                 →
             </button>

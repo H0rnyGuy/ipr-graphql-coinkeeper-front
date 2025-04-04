@@ -14,6 +14,10 @@
     opacity: 0.5;
 }
 
+.pagination-wrapper button:hover{
+    background: #4f46e5;
+}
+
 .pagination-wrapper button:hover:not(:disabled) {
-    background: #5a5a5a;
+    background: #4f46e5;
 }
