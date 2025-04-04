@@ -1,14 +1,15 @@
 import { useParams, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import { useIsLogged } from "../../hooks/useIsLogged.ts";
 import ProfileMenu from "../../components/ProfileMenu.tsx";
 import {useCategory} from "../../hooks/categoryPage/useCategory.ts";
 import {CategoryNames} from "../../components/categories/categoryIcons.ts";
 import {CategoryTypes, CategoryTypeText} from "../../components/categories/categoryTypes.ts";
 import '../../styles/category/categoryPage.css'
-import {TransactionList} from '../../components/transactions/TransactionList.tsx'
+import {TransactionList, TransactionListHandle} from '../../components/transactions/TransactionList.tsx'
 import {TransactionFilters} from '../../components/transactions/TransactionFilters.tsx'
-import {CategoryBalance} from "../../components/transactions/CategoryBalance.tsx";
+import {CategoryBalance, CategoryBalanceHandle} from "../../components/transactions/CategoryBalance.tsx";
+import {CreateTransactionModal} from "../../components/transactions/CreateTransactionModal.tsx";
 
 const CategoryPage = () => {
     const { id } = useParams();
@@ -24,6 +25,12 @@ const CategoryPage = () => {
     const [filters, setFilters] = useState({});
 
     const [isGraphView, setIsGraphView] = useState(false);
+
+    const [showModal, setShowModal] = useState(false);
+
+    const transactionsRef = useRef<TransactionListHandle>(null);
+    const balanceRef = useRef<CategoryBalanceHandle>(null);
+
 
     useEffect(() => {
         isLogged();
@@ -45,6 +52,11 @@ const CategoryPage = () => {
 
     const toggleGraphView = () => {
         setIsGraphView((prev) => !prev);
+    };
+
+    const forceRefetch = () => {
+        transactionsRef.current?.refetch();
+        balanceRef.current?.refetch();
     };
 
     return (
@@ -72,6 +84,7 @@ const CategoryPage = () => {
                             )}
 
                             <CategoryBalance
+                                ref={balanceRef}
                                 categoryId={category.id}
                                 filters={filters}
                             />
@@ -80,7 +93,7 @@ const CategoryPage = () => {
                         {/* Создание транзакций */}
                         {!isGraphView && (
                             <div className="add-transaction-button">
-                                <button>Create Transaction</button>
+                                <button onClick={() => setShowModal(true)}>Create Transaction</button>
                             </div>
                         )}
 
@@ -99,12 +112,27 @@ const CategoryPage = () => {
                         ) : (
                             <>
                                 <TransactionFilters onChange={setFilters} />
-                                <TransactionList categoryId={category.id} filters={filters} />
+                                <TransactionList
+                                    ref={transactionsRef}
+                                    categoryId={category.id}
+                                    filters={filters}
+                                />
                             </>
                         )}
                     </div>
                 )
             )}
+
+            {showModal && (
+                <CreateTransactionModal
+                    categoryId={category.id}
+                    onClose={() => setShowModal(false)}
+                    onSuccess={() => {
+                        forceRefetch();
+                    }}
+                />
+            )}
+
         </div>
     );
 

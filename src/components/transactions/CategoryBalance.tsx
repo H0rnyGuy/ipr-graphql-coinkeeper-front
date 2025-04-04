@@ -1,11 +1,28 @@
+import { forwardRef, useImperativeHandle } from "react";
 import { useBalance } from "../../hooks/categoryPage/useBalance";
 import '../../styles/transactions/CategoryBalance.css';
 
-export const CategoryBalance = ({ categoryId, filters }) => {
-    const { balance, loading } = useBalance({
+export type CategoryBalanceHandle = {
+    refetch: () => void;
+};
+
+type CategoryBalanceProps = {
+    categoryId: number;
+    filters: object;
+};
+
+const CategoryBalanceInner = (
+    { categoryId, filters }: CategoryBalanceProps,
+    ref: React.Ref<CategoryBalanceHandle>
+) => {
+    const { balance, loading, refetch } = useBalance({
         byCategoriesId: [categoryId],
         ...filters,
     });
+
+    useImperativeHandle(ref, () => ({
+        refetch,
+    }));
 
     if (loading) return <p>Loading balance...</p>;
     if (!balance) return null;
@@ -31,3 +48,5 @@ export const CategoryBalance = ({ categoryId, filters }) => {
         </div>
     );
 };
+
+export const CategoryBalance = forwardRef(CategoryBalanceInner);

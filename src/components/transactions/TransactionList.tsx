@@ -1,12 +1,28 @@
+import { forwardRef, useImperativeHandle } from "react";
+import { useTransactions } from "../../hooks/categoryPage/useTransactions.ts";
 import { TransactionItem } from "./TransactionItem.tsx";
-import {useTransactions} from "../../hooks/categoryPage/useTransactions.ts";
-import '../../styles/transactions/TransactionList.css';
 
-export const TransactionList = ({ categoryId, filters }) => {
-    const { data: transactions, loading } = useTransactions({
+export type TransactionListHandle = {
+    refetch: () => void;
+};
+
+export type TransactionListProps = {
+    categoryId: number;
+    filters: any;
+};
+
+const TransactionListInner = (
+    { categoryId, filters }: TransactionListProps,
+    ref: React.Ref<TransactionListHandle>
+) => {
+    const { data: transactions, loading, refetch } = useTransactions({
         byCategoriesId: [categoryId],
         ...filters,
     });
+
+    useImperativeHandle(ref, () => ({
+        refetch,
+    }));
 
     if (loading) return <p>Loading transactions...</p>;
     if (transactions.length === 0) return <p>No transactions found.</p>;
@@ -19,3 +35,5 @@ export const TransactionList = ({ categoryId, filters }) => {
         </div>
     );
 };
+
+export const TransactionList = forwardRef(TransactionListInner);

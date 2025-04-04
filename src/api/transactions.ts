@@ -22,3 +22,19 @@ export const GET_TRANSACTIONS = gql`
       }
     }
 `;
+
+export const CREATE_TRANSACTION = gql`
+    mutation create($data: CreateTransactionDto!) {
+      create(data: $data) {
+            id
+            userId
+            categoryId
+            description
+            type
+            amount
+            transactionDate
+            createdAt
+            updatedAt
+      }
+    }
+`;
