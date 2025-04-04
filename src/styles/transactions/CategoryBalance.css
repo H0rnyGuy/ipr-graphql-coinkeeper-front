@@ -1,0 +1,37 @@
+.category-balance {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    justify-content: space-between;
+    background: #2c2c2c;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.balance-item {
+    text-align: center;
+}
+
+.balance-item p {
+    margin: 0;
+    font-size: 1rem;
+    color: #bbb;
+}
+
+.balance-item span {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.income span {
+    color: #28a745;
+}
+
+.outcome span {
+    color: #dc3545;
+}
+
+.total span {
+    color: #007bff;
+}

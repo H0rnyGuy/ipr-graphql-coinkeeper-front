@@ -8,6 +8,7 @@ import {CategoryTypes, CategoryTypeText} from "../../components/categories/categ
 import '../../styles/category/categoryPage.css'
 import {TransactionList} from '../../components/transactions/TransactionList.tsx'
 import {TransactionFilters} from '../../components/transactions/TransactionFilters.tsx'
+import {CategoryBalance} from "../../components/transactions/CategoryBalance.tsx";
 
 const CategoryPage = () => {
     const { id } = useParams();
@@ -18,9 +19,11 @@ const CategoryPage = () => {
 
     const [category, setCategory] = useState(location.state?.category || null);
 
-    const { category: fetchedCategory, loading, error, refetch } = useCategory({ id: numericId, skip: !!category });
+    const { category: fetchedCategory, loading, refetch } = useCategory({ id: numericId, skip: !!category });
 
     const [filters, setFilters] = useState({});
+
+    const [isGraphView, setIsGraphView] = useState(false);
 
     useEffect(() => {
         isLogged();
@@ -40,6 +43,10 @@ const CategoryPage = () => {
         return CategoryNames[defaultCategoryId] || "Unknown Category";
     };
 
+    const toggleGraphView = () => {
+        setIsGraphView((prev) => !prev);
+    };
+
     return (
         <div className="category-page">
             <ProfileMenu />
@@ -49,9 +56,7 @@ const CategoryPage = () => {
 
             {loading ? (
                 <p>Loading...</p>
-            ) : error ? (
-                <p>Error: {error.message}</p>
-            ) : (
+            ) :  (
                 category && (
                     <div className="category-page-content">
                         {/* Верхняя часть с данными категории */}
@@ -65,24 +70,38 @@ const CategoryPage = () => {
                                     <h3>Default Category: {getDefaultCategoryName(category.defaultCategoryId)}</h3>
                                 </div>
                             )}
+
+                            <CategoryBalance
+                                categoryId={category.id}
+                                filters={filters}
+                            />
                         </div>
 
                         {/* Создание транзакций */}
-                        <div className="add-transaction-button">
-                            <button>Create Transaction</button>
-                        </div>
-
+                        {!isGraphView && (
+                            <div className="add-transaction-button">
+                                <button>Create Transaction</button>
+                            </div>
+                        )}
 
                         {/* График или переключатель между графиком и списком транзакций */}
                         <div className="graph-toggle">
-                            <button>Switch to Graph View</button>
+                            <button onClick={toggleGraphView}>
+                                {isGraphView ? "Switch to Transaction List" : "Switch to Graph View"}
+                            </button>
                         </div>
 
                         {/* Список транзакций */}
-                        <div className="transaction-list">
-                            <TransactionFilters onChange={setFilters} />
-                            <TransactionList categoryId={category.id} filters={filters} />
-                        </div>
+                        {isGraphView ? (
+                            <div className="graph-placeholder">
+                                <p>📊 Graph View coming soon...</p>
+                            </div>
+                        ) : (
+                            <>
+                                <TransactionFilters onChange={setFilters} />
+                                <TransactionList categoryId={category.id} filters={filters} />
+                            </>
+                        )}
                     </div>
                 )
             )}
