@@ -1,7 +1,8 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { useCreateTransaction } from "../../hooks/categoryPage/useCreateTransaction.ts";
-import '../../styles/transactions/CreateTransactionModal.css'
+import '../../styles/transactions/CreateTransactionModal.css';
+
 export const CreateTransactionModal = ({ onClose, categoryId, onSuccess }) => {
     const { createTransaction, loading } = useCreateTransaction();
 
@@ -29,9 +30,11 @@ export const CreateTransactionModal = ({ onClose, categoryId, onSuccess }) => {
 
     return (
         <div className="modal-backdrop">
-            <div className="modal">
-                <h2>Create Transaction</h2>
+            <div className="modal-content">
+
+                <div className="modal-title">Create Transaction</div>
                 <form onSubmit={handleSubmit}>
+
                     <div className="form-group">
                         <label>Type</label>
                         <select value={type} onChange={(e) => setType(Number(e.target.value))}>
@@ -66,14 +69,21 @@ export const CreateTransactionModal = ({ onClose, categoryId, onSuccess }) => {
                             selected={date}
                             onChange={(date) => setDate(date)}
                             dateFormat="yyyy-MM-dd"
+                            inline
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
+                            calendarClassName="custom-calendar"
                         />
                     </div>
 
-                    <div className="form-actions">
+                    <div className="modal-actions">
                         <button type="submit" disabled={loading}>Create</button>
                         <button type="button" onClick={onClose}>Cancel</button>
                     </div>
+
                 </form>
+
             </div>
         </div>
     );

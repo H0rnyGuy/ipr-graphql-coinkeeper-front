@@ -1,62 +1,137 @@
 .modal-backdrop {
     position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.4);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 1000;
+    justify-content: center;
+    z-index: 999;
 }
 
-.modal {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 400px;
-    max-width: 95%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+.modal-content {
+    background-color: #2e2e2e;
+    padding: 24px 28px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    color: #fff;
 }
 
-.form-group {
-    margin-bottom: 1rem;
+.modal-content .modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    background-color: #1e1e1e;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    resize: none;
+}
+
+.modal-actions {
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 12px;
 }
 
-.form-group label {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-textarea, input, select {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.form-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
-}
-
-button {
-    padding: 0.5rem 1rem;
+.modal-actions button {
+    padding: 8px 16px;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button[type="submit"] {
-    background-color: #007bff;
+    border-radius: 6px;
+    background-color: #666;
     color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-button[type="button"] {
-    background-color: #ccc;
-}
-
-.form-actions button:disabled {
+.modal-actions button:disabled {
     background-color: #666;
     cursor: not-allowed;
 }
+
+.modal-actions button[type="button"] {
+    background-color: #555;
+}
+
+.modal-actions button[type="button"]:hover {
+    background-color: #777;
+}
+
+.modal-actions button[type="submit"]:hover
+
+
+    /* Стилизация DatePicker */
+    /* Общие стили для модалки */
+.custom-calendar {
+    background-color: #2e2e2e;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: white;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Заголовок календаря */
+.react-datepicker__header {
+    background-color: #4f46e5;
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Строки с днями недели */
+.react-datepicker__day-name {
+    color: #ccc;
+    font-weight: 600;
+}
+
+/* Сами дни календаря */
+.react-datepicker__day {
+    background-color: transparent;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    width: 35px; /* Ограничение по ширине */
+    text-align: center;
+    margin: 2px;
+}
+
+/* Наведение на день */
+.react-datepicker__day:hover {
+    background-color: #4f46e5;
+}
+
+/* Выбранный день */
+.react-datepicker__day--selected {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Неактивные дни месяца */
+.react-datepicker__day--disabled {
+    color: #555;
+}
+
+
