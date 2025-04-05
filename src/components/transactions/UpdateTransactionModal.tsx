@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useUpdateTransaction } from "../../hooks/categoryPage/useUpdateTransaction";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "../../styles/categories/confirmDeletionModal.css";
+import "../../styles/transactions/UpdateTransactionModal.css";
 
 const UpdateTransactionModal = ({ transaction, onClose, onUpdated }) => {
     const [type, setType] = useState(transaction.type);

@@ -67,13 +67,8 @@ export const CreateTransactionModal = ({ onClose, categoryId, onSuccess }) => {
                         <label>Date</label>
                         <DatePicker
                             selected={date}
-                            onChange={(date) => setDate(date)}
+                            onChange={(d) => setDate(d)}
                             dateFormat="yyyy-MM-dd"
-                            inline
-                            showMonthDropdown
-                            showYearDropdown
-                            dropdownMode="select"
-                            calendarClassName="custom-calendar"
                         />
                     </div>
 
