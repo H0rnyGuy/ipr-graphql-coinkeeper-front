@@ -163,11 +163,6 @@
 }
 
 .field-label {
-    font-weight: 600;
-    color: #bbb;
-}
-
-.field-value {
     color: white;
     font-weight: 400;
 }
