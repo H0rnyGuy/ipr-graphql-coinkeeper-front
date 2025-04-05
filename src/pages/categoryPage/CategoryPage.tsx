@@ -12,6 +12,8 @@ import {CategoryBalance, CategoryBalanceHandle} from "../../components/transacti
 import {CreateTransactionModal} from "../../components/transactions/CreateTransactionModal.tsx";
 import ConfirmDeleteModal from "../../components/transactions/ConfirmDeleteModal.tsx";
 import UpdateTransactionModal from "../../components/transactions/UpdateTransactionModal.tsx";
+import UpdateCategoryModal from "../../components/categories/UpdateCategoryModal.tsx";
+import {FiMoreVertical} from "react-icons/fi";
 
 const CategoryPage = () => {
     const { id } = useParams();
@@ -38,6 +40,10 @@ const CategoryPage = () => {
 
     const [updatingTransaction, setUpdatingTransaction] = useState(null);
     const [updateModalOpen, setUpdateModalOpen] = useState(false);
+
+    const [updateCategoryModalOpen, setUpdateCategoryModalOpen] = useState(false)
+    const [menuOpen, setMenuOpen] = useState(false);
+
 
     useEffect(() => {
         isLogged();
@@ -98,6 +104,16 @@ const CategoryPage = () => {
         balanceRef.current?.refetch();
     };
 
+    const toggleMenu = () => setMenuOpen(prev => !prev);
+
+    const closeCategoryUpdateModal = () => {
+        setUpdateCategoryModalOpen(false);
+    }
+
+    const handleCategoryUpdated = (updated) => {
+        setCategory(updated);
+    }
+
     return (
         <div className="category-page">
             <ProfileMenu />
@@ -112,13 +128,33 @@ const CategoryPage = () => {
                     <div className="category-page-content">
                         {/* Верхняя часть с данными категории */}
                         <div className="category-header">
-                            <h2 className="category-name">{category.name}</h2>
+
+                            <div className="category-name-wrapper">
+                                <div className="category-name">{category.name}</div>
+
+                                <div className="menu-container">
+                                    <button className="menu-button" onClick={toggleMenu}>
+                                        <FiMoreVertical />
+                                    </button>
+
+                                    {menuOpen && (
+                                        <div className="menu-dropdown">
+                                            <button onClick={() => setUpdateCategoryModalOpen(true)}>Edit</button>
+                                        </div>
+                                    )}
+
+                                </div>
+                            </div>
+
                             <p className="category-description">{category.description}</p>
                             <p className="category-type">Type: {getCategoryTypeText(category.type)}</p>
 
+
+
+
                             {category.defaultCategoryId && (
                                 <div className="default-category">
-                                    <h3>Default Category: {getDefaultCategoryName(category.defaultCategoryId)}</h3>
+                                    <div>Default Category: {getDefaultCategoryName(category.defaultCategoryId)}</div>
                                 </div>
                             )}
 
@@ -187,6 +223,14 @@ const CategoryPage = () => {
                     transaction={updatingTransaction}
                     onClose={closeUpdateModal}
                     onUpdated={handleTransactionUpdated}
+                />
+            )}
+
+            {updateCategoryModalOpen && category && (
+                <UpdateCategoryModal
+                    category={category}
+                    onClose={closeCategoryUpdateModal}
+                    onUpdated={handleCategoryUpdated}
                 />
             )}
 
