@@ -23,3 +23,12 @@ export const UPDATE_PROFILE = gql`
       }
     }
 `;
+
+export const CHANGE_PASSWORD = gql`
+    mutation changePassword($data: ChangeUserPasswordDto!) {
+      changePassword(data: $data) {
+        success
+      }
+    }
+`;
+

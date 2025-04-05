@@ -4,6 +4,7 @@ import "../styles/ProfileMenu.css";
 import { useProfile } from "../hooks/profileMenu/useProfile.ts";
 import {CategoryBalance, CategoryBalanceHandle} from "./transactions/CategoryBalance";
 import UpdateProfileModal from "./profile/UpdateProfileModal.tsx";
+import ChangePasswordModal from "./profile/ChangePasswordModal.tsx";
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,8 @@ const ProfileMenu = () => {
     const balanceRef = useRef<CategoryBalanceHandle>(null);
 
     const [updateModalOpen, setUpdateModalOpen] = useState(false);
+
+    const [passwordModalOpen, setPasswordModalOpen] = useState(false);
 
     const formatLastFetched = () => {
         if (!lastBalanceFetchedAt) return "Never";
@@ -48,6 +51,10 @@ const ProfileMenu = () => {
         setCachedProfile(updated);
         closeEditProfile();
     };
+
+    const handleOpenPasswordModal = () => setPasswordModalOpen(true);
+    const closePasswordModal = () => setPasswordModalOpen(false);
+
 
     return (
         <div className="profile-menu">
@@ -107,9 +114,15 @@ const ProfileMenu = () => {
                     </div>
 
                     {cachedProfile && (
-                        <button className="edit-profile-button" onClick={handleEditProfile}>
-                            Edit Profile
-                        </button>
+                        <>
+                            <button className="edit-profile-button" onClick={handleEditProfile}>
+                                Edit Profile
+                            </button>
+
+                            <button className="edit-profile-button" onClick={handleOpenPasswordModal}>
+                                Change Password
+                            </button>
+                        </>
                     )}
 
                     <button
@@ -130,6 +143,9 @@ const ProfileMenu = () => {
                 />
             )}
 
+            {passwordModalOpen && (
+                <ChangePasswordModal onClose={closePasswordModal} />
+            )}
 
         </div>
     );
