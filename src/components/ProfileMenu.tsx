@@ -3,6 +3,7 @@ import { useLogout } from "../hooks/useLogout";
 import "../styles/ProfileMenu.css";
 import { useProfile } from "../hooks/profileMenu/useProfile.ts";
 import {CategoryBalance, CategoryBalanceHandle} from "./transactions/CategoryBalance";
+import UpdateProfileModal from "./profile/UpdateProfileModal.tsx";
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,8 @@ const ProfileMenu = () => {
 
     const [lastBalanceFetchedAt, setBalanceLastFetchedAt] = useState<Date | null>(null);
     const balanceRef = useRef<CategoryBalanceHandle>(null);
+
+    const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
     const formatLastFetched = () => {
         if (!lastBalanceFetchedAt) return "Never";
@@ -36,6 +39,14 @@ const ProfileMenu = () => {
     const handleRefreshBalance = () => {
         balanceRef.current?.refetch();
         setBalanceLastFetchedAt(new Date());
+    };
+
+    const handleEditProfile = () => setUpdateModalOpen(true);
+    const closeEditProfile = () => setUpdateModalOpen(false);
+
+    const handleProfileUpdated = (updated) => {
+        setCachedProfile(updated);
+        closeEditProfile();
     };
 
     return (
@@ -95,6 +106,12 @@ const ProfileMenu = () => {
                         </div>
                     </div>
 
+                    {cachedProfile && (
+                        <button className="edit-profile-button" onClick={handleEditProfile}>
+                            Edit Profile
+                        </button>
+                    )}
+
                     <button
                         className="logout-button"
                         onClick={handleLogout}
@@ -104,6 +121,16 @@ const ProfileMenu = () => {
                     </button>
                 </div>
             )}
+
+            {updateModalOpen && cachedProfile && (
+                <UpdateProfileModal
+                    profile={cachedProfile}
+                    onClose={closeEditProfile}
+                    onUpdated={handleProfileUpdated}
+                />
+            )}
+
+
         </div>
     );
 };

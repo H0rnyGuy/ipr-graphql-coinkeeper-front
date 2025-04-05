@@ -44,6 +44,34 @@
     transition: background 0.2s ease-in-out;
 }
 
-.profile-sidebar button:hover {
+.profile-balance-section {
+    margin-top: 1rem;
+}
 
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.refresh-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    color: #555;
+}
+
+.refresh-button:hover {
+    color: #000;
+}
+
+.balance-updated-at {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 0.25rem;
 }

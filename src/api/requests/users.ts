@@ -11,3 +11,15 @@ export const GET_PROFILE = gql`
       }
     }
 `;
+
+export const UPDATE_PROFILE = gql`
+    mutation updateMe ($data: UpdateUserDto!)  {
+      updateMe (data: $data) {
+        id
+        email
+        username
+        firstName
+        lastName
+      }
+    }
+`;
