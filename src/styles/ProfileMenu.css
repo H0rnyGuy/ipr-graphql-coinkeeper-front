@@ -53,10 +53,13 @@
 
 .profile-balance-section {
     margin-top: 1rem;
-    padding: 1rem;
-    background-color: #444;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px; /* добавим padding, чтобы увеличить отступы и обеспечить лучшее пространство */
+    background-color: #3a3a3a;
     border-radius: 8px;
-    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* добавляем тень, чтобы выделить */
 }
 
 .section-title {
@@ -76,6 +79,7 @@
     background-color: #4f46e5;
     color: white;
     border: none;
+    cursor: pointer;
 }
 
 .refresh-button:hover {
@@ -200,6 +204,8 @@
     gap: 1.5rem;
     color: white;
     text-align: center;
+    min-width: 225px;
+    flex-shrink: 0;
 }
 
 .balance-item {
