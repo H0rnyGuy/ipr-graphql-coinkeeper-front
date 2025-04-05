@@ -113,15 +113,15 @@
     color: white;
     font-weight: 400;
     font-size: 1rem;
-    max-width: 100%; /* Ограничиваем ширину */
-    white-space: nowrap; /* Запрещаем перенос текста */
-    overflow: hidden; /* Прячем переполненный текст */
-    text-overflow: ellipsis; /* Добавляем многоточие в случае переполнения */
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .profile-info .profile-field .field-value {
     padding-left: 10px;
-    font-size: 1.1rem; /* Увеличиваем шрифт значения для улучшения читаемости */
+    font-size: 1.1rem;
 }
 
 .profile-title {
@@ -155,7 +155,7 @@
 }
 
 .profile-info .profile-field {
-    padding-bottom: 10px; /* Добавляем отступ снизу, чтобы текст не прилипал к другим элементам */
+    padding-bottom: 10px;
 }
 
 .field-label {
@@ -187,4 +187,46 @@
 .logout-button:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
+}
+
+
+.category-balance {
+    background-color: #3a3a3a;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    color: white;
+    text-align: center;
+}
+
+.balance-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.balance-item p {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.balance-item span {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.income span {
+    color: #28a745;
+}
+
+.outcome span {
+    color: #dc3545;
+}
+
+.total span {
+    color: #007bff;
 }
