@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useIsLogged } from "../../hooks/useIsLogged.ts";
-import ProfileMenu from "../../components/ProfileMenu.tsx";
 import PaginationDots from "../../components/PaginationDots.tsx";
 import { useCategories } from "../../hooks/categoriesPage/useCategories.ts";
 import CategoryGrid from "../../components/categories/categoryGrid.tsx";
@@ -124,7 +123,6 @@ const CategoriesPage = () => {
 
     return (
         <div>
-            <ProfileMenu />
 
             <div className="categories-grid-wrapper">
                 <div className="categories-header">

@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { GOOGLE_LOGIN_MUTATION } from '../../api/auth';
+import { GOOGLE_LOGIN_MUTATION } from '../../api/requests/auth.ts';
 import { setCredentials } from '../../store/authentification/authSlice.ts';
 import { toast } from 'react-toastify';
 import { apolloSessionsClient } from '../../api';

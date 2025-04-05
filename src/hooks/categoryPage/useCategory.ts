@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_CATEGORY } from "../../api/categories";
+import { GET_CATEGORY } from "../../api/requests/categories.ts";
 import { apolloCategoriesClient } from "../../api";
 import { toast } from "react-toastify";
 

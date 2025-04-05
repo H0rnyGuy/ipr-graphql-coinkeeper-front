@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import {apolloTransactionsClient} from "../../api";
 import { toast } from "react-toastify";
-import {UPDATE_TRANSACTION} from "../../api/transactions.ts";
+import {UPDATE_TRANSACTION} from "../../api/requests/transactions.ts";
 
 export const useUpdateTransaction = () => {
     const [updateTransactionMutation, { loading }] = useMutation(UPDATE_TRANSACTION, {

@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { DELETE_CATEGORY } from "../../api/categories";
+import { DELETE_CATEGORY } from "../../api/requests/categories.ts";
 import { toast } from "react-toastify";
 import { apolloCategoriesClient } from "../../api";
 

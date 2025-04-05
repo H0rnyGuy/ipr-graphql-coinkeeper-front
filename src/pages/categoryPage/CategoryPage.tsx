@@ -1,7 +1,6 @@
 import { useParams, useLocation } from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import { useIsLogged } from "../../hooks/useIsLogged.ts";
-import ProfileMenu from "../../components/ProfileMenu.tsx";
 import {useCategory} from "../../hooks/categoryPage/useCategory.ts";
 import {CategoryNames} from "../../components/categories/categoryIcons.ts";
 import {CategoryTypes, CategoryTypeText} from "../../components/categories/categoryTypes.ts";
@@ -116,7 +115,6 @@ const CategoryPage = () => {
 
     return (
         <div className="category-page">
-            <ProfileMenu />
             <div className="category-page-header">
                 <h1 className="category-page-title">Category Page</h1>
             </div>

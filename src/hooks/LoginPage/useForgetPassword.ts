@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { SEND_RESET_PASSWORD_EMAIL } from '../../api/auth';
+import { SEND_RESET_PASSWORD_EMAIL } from '../../api/requests/auth.ts';
 import { toast } from 'react-toastify';
 import { apolloVerificationsClient } from '../../api';
 

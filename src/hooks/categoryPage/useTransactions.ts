@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import {apolloTransactionsClient} from "../../api";
 import { toast } from "react-toastify";
-import {GET_TRANSACTIONS} from "../../api/transactions.ts";
+import {GET_TRANSACTIONS} from "../../api/requests/transactions.ts";
 
 export const useTransactions = ({ offset = 0, limit = 12, byType = null, byCategoriesId = [], fromDate = null }) => {
     const { data, loading, error, refetch } = useQuery(GET_TRANSACTIONS, {

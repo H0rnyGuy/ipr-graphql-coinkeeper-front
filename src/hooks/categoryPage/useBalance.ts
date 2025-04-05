@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import {apolloDashboardClient} from "../../api";
 import { toast } from "react-toastify";
-import {GET_BALANCE} from "../../api/dashboard.ts";
+import {GET_BALANCE} from "../../api/requests/dashboard.ts";
 
 export const useBalance = ({ byCategoriesId = [], byType = null, fromDate = null }) => {
     const { data, loading, error, refetch } = useQuery(GET_BALANCE, {

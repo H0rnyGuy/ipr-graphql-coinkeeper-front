@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../store/authentification/authSlice";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
-import { LOGOUT_MUTATION } from "../api/auth.ts";
+import { LOGOUT_MUTATION } from "../api/requests/auth.ts";
 import { apolloSessionsClient } from "../api";
 
 export function useLogout() {

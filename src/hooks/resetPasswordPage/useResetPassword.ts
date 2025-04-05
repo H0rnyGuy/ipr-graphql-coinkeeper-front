@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { RESET_PASSWORD } from '../../api/auth';
+import { RESET_PASSWORD } from '../../api/requests/auth.ts';
 import { toast } from 'react-toastify';
 import { apolloVerificationsClient} from '../../api';
 

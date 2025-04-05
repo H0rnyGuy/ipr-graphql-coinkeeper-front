@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { REGISTER_MUTATION } from '../../api/auth';
+import { REGISTER_MUTATION } from '../../api/requests/auth.ts';
 import { toast } from 'react-toastify';
 import { apolloUsersClient } from '../../api';
 
