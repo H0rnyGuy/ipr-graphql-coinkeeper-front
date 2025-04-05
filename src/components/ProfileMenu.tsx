@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLogout } from "../hooks/useLogout";
 import "../styles/ProfileMenu.css";
-import {useProfile} from "../hooks/profileMenu/useProfile.ts";
+import { useProfile } from "../hooks/profileMenu/useProfile.ts";
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,32 +21,53 @@ const ProfileMenu = () => {
 
     return (
         <div className="profile-menu">
-            {/* Иконка профиля */}
             <button className="profile-icon" onClick={() => setIsOpen(!isOpen)}>
                 🧑
             </button>
 
-            {/* Боковая панель */}
             {isOpen && (
                 <div className="profile-sidebar">
                     <button className="profile-icon" onClick={() => setIsOpen(false)}>
                         ←
                     </button>
 
-                    <h3>Profile</h3>
+                    <div className="profile-title">Profile</div>
 
-                    {profileLoading && <p>Loading profile...</p>}
-                    {error && <p className="error">Failed to load profile</p>}
+                    {profileLoading && (
+                        <div className="profile-loading">Loading profile...</div>
+                    )}
+
+                    {error && (
+                        <div className="profile-error">Failed to load profile</div>
+                    )}
 
                     {cachedProfile && (
                         <div className="profile-info">
-                            <p><strong>Username:</strong> {cachedProfile.username}</p>
-                            <p><strong>Email:</strong> {cachedProfile.email}</p>
-                            {cachedProfile.firstName && <p><strong>Name:</strong> {cachedProfile.firstName} {cachedProfile.lastName || ""}</p>}
+
+                            <div className="profile-field">
+                                <span className="field-label">Name:</span>
+                                <span className="field-value">
+									{cachedProfile.firstName || cachedProfile.lastName
+                                        ? `${cachedProfile.firstName || ""} ${cachedProfile.lastName || ""}`
+                                        : "Not provided"}
+								</span>
+                            </div>
+
+                            <div className="profile-field">
+                                <span className="field-label">Username:</span>
+                                <span className="field-value">{cachedProfile.username}</span>
+                            </div>
+
+                            <div className="profile-field">
+                                <span className="field-label">Email:</span>
+                                <span className="field-value">{cachedProfile.email}</span>
+                            </div>
+
                         </div>
                     )}
 
                     <button
+                        className="logout-button"
                         onClick={handleLogout}
                         disabled={logoutLoading}
                     >
