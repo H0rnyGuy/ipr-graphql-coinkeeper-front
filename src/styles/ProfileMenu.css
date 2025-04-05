@@ -92,7 +92,8 @@
 .profile-info {
     margin-top: 2rem;
     padding: 20px;
-    background-color: #444; /* Тёмный фон для выделения блока */
+    background-color: #444;
+    word-wrap: break-word;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -112,6 +113,10 @@
     color: white;
     font-weight: 400;
     font-size: 1rem;
+    max-width: 100%; /* Ограничиваем ширину */
+    white-space: nowrap; /* Запрещаем перенос текста */
+    overflow: hidden; /* Прячем переполненный текст */
+    text-overflow: ellipsis; /* Добавляем многоточие в случае переполнения */
 }
 
 .profile-info .profile-field .field-value {
