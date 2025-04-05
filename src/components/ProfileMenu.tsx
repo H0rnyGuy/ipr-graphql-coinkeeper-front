@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLogout } from "../hooks/useLogout";
 import "../styles/ProfileMenu.css";
 import { useProfile } from "../hooks/profileMenu/useProfile.ts";
+import { CategoryBalance } from "./transactions/CategoryBalance";
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -33,17 +34,19 @@ const ProfileMenu = () => {
 
                     <div className="profile-title">Profile</div>
 
-                    {profileLoading && (
-                        <div className="profile-loading">Loading profile...</div>
-                    )}
-
-                    {error && (
-                        <div className="profile-error">Failed to load profile</div>
-                    )}
+                    {profileLoading && <div className="profile-loading">Loading profile...</div>}
+                    {error && <div className="profile-error">Failed to load profile</div>}
 
                     {cachedProfile && (
                         <div className="profile-info">
-
+                            <div className="profile-field">
+                                <span className="field-label">Username:</span>
+                                <span className="field-value">{cachedProfile.username}</span>
+                            </div>
+                            <div className="profile-field">
+                                <span className="field-label">Email:</span>
+                                <span className="field-value">{cachedProfile.email}</span>
+                            </div>
                             <div className="profile-field">
                                 <span className="field-label">Name:</span>
                                 <span className="field-value">
@@ -52,19 +55,16 @@ const ProfileMenu = () => {
                                         : "Not provided"}
 								</span>
                             </div>
-
-                            <div className="profile-field">
-                                <span className="field-label">Username:</span>
-                                <span className="field-value">{cachedProfile.username}</span>
-                            </div>
-
-                            <div className="profile-field">
-                                <span className="field-label">Email:</span>
-                                <span className="field-value">{cachedProfile.email}</span>
-                            </div>
-
                         </div>
                     )}
+
+                    <div className="profile-balance-section">
+                        <div className="section-title">Total Balance</div>
+                        <CategoryBalance
+                            categoryId={undefined}
+                            filters={{}}
+                        />
+                    </div>
 
                     <button
                         className="logout-button"

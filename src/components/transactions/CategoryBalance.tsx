@@ -7,7 +7,7 @@ export type CategoryBalanceHandle = {
 };
 
 type CategoryBalanceProps = {
-    categoryId: number;
+    categoryId: number | undefined;
     filters: object;
 };
 
@@ -15,8 +15,9 @@ const CategoryBalanceInner = (
     { categoryId, filters }: CategoryBalanceProps,
     ref: React.Ref<CategoryBalanceHandle>
 ) => {
+    const byCategoriesId = categoryId ? [categoryId] : []
     const { balance, loading, refetch } = useBalance({
-        byCategoriesId: [categoryId],
+        byCategoriesId,
         ...filters,
     });
 
