@@ -13,7 +13,6 @@ import ConfirmDeleteModal from "../../components/transactions/ConfirmDeleteModal
 import UpdateTransactionModal from "../../components/transactions/UpdateTransactionModal.tsx";
 import UpdateCategoryModal from "../../components/categories/UpdateCategoryModal.tsx";
 import {FiMoreVertical} from "react-icons/fi";
-import {useGraphic} from "../../hooks/categoryPage/useGraphic.ts";
 import {CategoryGraph} from "../../components/graph/categoryGraph.tsx";
 
 const CategoryPage = () => {
@@ -48,7 +47,6 @@ const CategoryPage = () => {
 
 
     useEffect(() => {
-        console.log('location.state:', location.state)
         isLogged();
     }, []);
 

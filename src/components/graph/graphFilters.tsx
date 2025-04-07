@@ -1,50 +1,68 @@
-import { useState } from 'react';
+import { useState } from "react";
+import '../../styles/transactions/TransactionFilters.css';
 
-const maxRangeDays = 30;
+const TRANSACTION_TYPES = [
+    { label: "All", value: null },
+    { label: "Income", value: "INCOME" },
+    { label: "Expense", value: "OUTCOME" },
+];
 
-export const GraphFilters = ({ onChange, defaultType = null }) => {
-    const [type, setType] = useState(defaultType);
-    const [fromDate, setFromDate] = useState('');
-    const [toDate, setToDate] = useState('');
+const DATE_RANGES = [
+    { label: "All time", value: null },
+    { label: "Last 30 days", value: 30 },
+    { label: "Last 7 days", value: 7 },
+];
 
-    const handleApply = () => {
-        if (fromDate && toDate) {
-            const diff = (new Date(toDate).getTime() - new Date(fromDate).getTime()) / (1000 * 60 * 60 * 24);
-            if (diff > maxRangeDays) {
-                alert('Maximum diapason is — 30 days');
-                return;
-            }
+export const GraphFilters = ({ onChange }) => {
+    const [type, setType] = useState(null);
+    const [days, setDays] = useState(null);
+
+    const handleChange = (newType, newDays) => {
+        setType(newType);
+        setDays(newDays);
+
+        let fromDate = null;
+        let toDate = null;
+
+        if (newDays !== null) {
+            const now = new Date();
+            const from = new Date(now.getTime() - newDays * 24 * 60 * 60 * 1000);
+            fromDate = from.toISOString().slice(0, 10);
+            toDate = now.toISOString().slice(0, 10);
         }
 
         onChange({
-            byType: type || null,
-            fromDate: fromDate || null,
-            toDate: toDate || null,
+            byType: newType,
+            fromDate,
+            toDate,
         });
     };
 
     return (
-        <div className="graph-filters">
-            <label>
-                Тип:
-                <select value={type || ''} onChange={(e) => setType(e.target.value || null)}>
-                    <option value="">All</option>
-                    <option value="INCOME">Income</option>
-                    <option value="OUTCOME">Expenses</option>
-                </select>
-            </label>
+        <div className="transaction-filters">
+            <div className="filter-group">
+                {TRANSACTION_TYPES.map((t) => (
+                    <button
+                        key={t.label}
+                        onClick={() => handleChange(t.value, days)}
+                        className={t.value === type ? "active" : ""}
+                    >
+                        {t.label}
+                    </button>
+                ))}
+            </div>
 
-            <label>
-                С:
-                <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
-            </label>
-
-            <label>
-                По:
-                <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
-            </label>
-
-            <button onClick={handleApply}>Use</button>
+            <div className="filter-group">
+                {DATE_RANGES.map((d) => (
+                    <button
+                        key={d.label}
+                        onClick={() => handleChange(type, d.value)}
+                        className={d.value === days ? "active" : ""}
+                    >
+                        {d.label}
+                    </button>
+                ))}
+            </div>
         </div>
     );
 };
