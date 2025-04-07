@@ -40,7 +40,6 @@ export const CategoryGraph = ({ categoryId, allCategories = [] }) => {
     const [filters, setFilters] = useState({});
     const [compareMode, setCompareMode] = useState(false);
     const [compareCategoryId, setCompareCategoryId] = useState(null);
-    const [compareFilters, setCompareFilters] = useState({});
 
     const [localCategories, setLocalCategories] = useState(allCategories || []);
 
@@ -51,7 +50,7 @@ export const CategoryGraph = ({ categoryId, allCategories = [] }) => {
 
     const { report: compareData, loading: loadingCompare } = useGraphic({
         byCategoriesId: compareCategoryId ? [compareCategoryId] : [],
-        ...compareFilters,
+        ...filters,
     });
 
     const datasets1 = mapDataToChart(mainData?.dashboardData || [], getColorVariants('green'));
@@ -81,9 +80,6 @@ export const CategoryGraph = ({ categoryId, allCategories = [] }) => {
                         renderLabel={(item) => item.name}
                     />
 
-                    {compareCategoryId && (
-                        <GraphFilters onChange={setCompareFilters} />
-                    )}
                 </div>
             )}
 
