@@ -8,6 +8,7 @@ const CategoryGrid = ({categories, onAddClick, onEdit, onDelete, deleteLoading }
                 <CategoryCard
                     key={cat.id}
                     category={cat}
+                    categories={categories}
                     onEdit={onEdit}
                     onDelete={onDelete}
                     deleteLoading={deleteLoading}

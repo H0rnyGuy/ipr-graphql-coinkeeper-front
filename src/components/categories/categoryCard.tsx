@@ -5,7 +5,7 @@ import {useState} from "react";
 import {FiMoreVertical} from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-const CategoryCard = ({ category, onEdit, onDelete, deleteLoading}) => {
+const CategoryCard = ({ category, categories, onEdit, onDelete, deleteLoading}) => {
     const { id, name, description, type, defaultCategoryId } = category;
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -38,7 +38,7 @@ const CategoryCard = ({ category, onEdit, onDelete, deleteLoading}) => {
             <div>
                 <Link
                     to={`/categories/${id}`}
-                    state={{ category }}
+                    state={{ category, allCategories: categories }}
                     className="category-card-title"
                 >
                     {name}

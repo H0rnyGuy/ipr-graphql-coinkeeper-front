@@ -9,3 +9,20 @@ export const GET_BALANCE = gql`
       }
     }
 `;
+
+export const GET_GRAPHIC = gql`
+    query getTransactions($data: GetTransactionsDashboardDto!) {
+      getTransactions(data: $data) {
+        dashboardData {
+          transactionDate
+          totalIncome
+          totalOutcome
+        }
+        totalData {
+          totalIncome
+          totalOutcome
+          totalBalance
+        }
+      }
+    }
+`;

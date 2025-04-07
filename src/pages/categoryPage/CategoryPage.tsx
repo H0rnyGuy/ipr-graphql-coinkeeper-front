@@ -13,6 +13,8 @@ import ConfirmDeleteModal from "../../components/transactions/ConfirmDeleteModal
 import UpdateTransactionModal from "../../components/transactions/UpdateTransactionModal.tsx";
 import UpdateCategoryModal from "../../components/categories/UpdateCategoryModal.tsx";
 import {FiMoreVertical} from "react-icons/fi";
+import {useGraphic} from "../../hooks/categoryPage/useGraphic.ts";
+import {CategoryGraph} from "../../components/graph/categoryGraph.tsx";
 
 const CategoryPage = () => {
     const { id } = useParams();
@@ -22,6 +24,7 @@ const CategoryPage = () => {
     const isLogged = useIsLogged();
 
     const [category, setCategory] = useState(location.state?.category || null);
+    const [allCategories, setAllCategories] = useState(location.state?.allCategories || []);
 
     const { category: fetchedCategory, loading } = useCategory({ id: numericId, skip: !!category });
 
@@ -45,6 +48,7 @@ const CategoryPage = () => {
 
 
     useEffect(() => {
+        console.log('location.state:', location.state)
         isLogged();
     }, []);
 
@@ -52,6 +56,10 @@ const CategoryPage = () => {
 
         if (fetchedCategory && !category) {
             setCategory(fetchedCategory);
+        }
+
+        if (!allCategories.length && fetchedCategory) {
+            setAllCategories([fetchedCategory]);
         }
 
     }, [fetchedCategory, category]);
@@ -180,7 +188,7 @@ const CategoryPage = () => {
                         {/* Список транзакций */}
                         {isGraphView ? (
                             <div className="graph-placeholder">
-                                <p>📊 Graph View coming soon...</p>
+                                <CategoryGraph categoryId={category.id} allCategories={[allCategories]} />
                             </div>
                         ) : (
                             <>
