@@ -60,7 +60,7 @@
 }
 
 .graph-filters .custom-range button:hover {
-    background-color: #3740ff;
+    background-color: #4f46e5;
 }
 
 .graph-filters input {
@@ -93,9 +93,9 @@
     background-color: #4f46e5;
     color: white;
     border-radius: 8px;
-    padding: 6px; /* Уменьшаем отступы */
+    padding: 6px;
     text-align: center;
-    font-size: 16px; /* Уменьшаем размер шрифта */
+    font-size: 16px;
 }
 
 /* Дни недели */
@@ -103,24 +103,24 @@
     color: #ccc;
     font-weight: 600;
     display: inline-block;
-    width: 35px; /* Уменьшаем ширину */
+    width: 35px;
     text-align: center;
-    margin: 1px; /* Уменьшаем отступы */
-    padding: 3px; /* Уменьшаем отступы */
-    font-size: 14px; /* Уменьшаем размер шрифта */
+    margin: 1px;
+    padding: 3px;
+    font-size: 14px;
 }
 
 /* Дни календаря */
 .react-datepicker__day {
     background-color: transparent;
-    padding: 6px; /* Уменьшаем отступы */
+    padding: 6px;
     border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-    width: 30px; /* Уменьшаем ширину */
+    width: 30px;
     text-align: center;
     margin: 1px;
-    font-size: 14px; /* Уменьшаем размер шрифта */
+    font-size: 14px;
 }
 
 /* Наведение на день */
@@ -164,7 +164,7 @@
 .react-datepicker__navigation--next {
     border-radius: 6px;
     color: white;
-    font-size: 14px; /* Уменьшаем шрифт */
+    font-size: 14px;
 }
 
 /* Стиль для всплывающих кнопок */
@@ -192,5 +192,5 @@
 }
 
 .react-datepicker__header .react-datepicker__navigation:hover {
-    background-color: #3740ff;
+    background-color: #4f46e5;
 }
