@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import '../../styles/transactions/TransactionFilters.css';
+import '../../styles/graph/GraphFilters.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const TRANSACTION_TYPES = [
     { label: "All", value: null },
@@ -14,33 +16,40 @@ const DATE_RANGES = [
 ];
 
 export const GraphFilters = ({ onChange }) => {
+
     const [type, setType] = useState(null);
-    const [days, setDays] = useState(7); // Default: Last 7 days
-    const [fromDate, setFromDate] = useState('');
-    const [toDate, setToDate] = useState('');
+    const [days, setDays] = useState(7);
+
+    const now = new Date();
+    const from = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+    const [fromDate, setFromDate] = useState(now);
+    const [toDate, setToDate] = useState(from);
 
     useEffect(() => {
         if (days === "custom") return;
 
-        const now = new Date();
-        const from = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+        setFromDate(from);
+        setToDate(now);
 
         onChange({
             byType: type,
-            fromDate: from.toISOString().slice(0, 10),
-            toDate: now.toISOString().slice(0, 10),
+            fromDate: from,
+            toDate: now,
         });
     }, [type, days]);
 
     const handleCustomSubmit = () => {
         if (!fromDate || !toDate) return;
 
-        const from = new Date(fromDate);
-        const to = new Date(toDate);
-        const diff = (to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24);
+        const diff = (toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24);
 
         if (diff > 30) {
-            alert("Диапазон не может превышать 30 дней.");
+            alert("Date range can't be more than 30 days.");
+            return;
+        }
+
+        if (fromDate > toDate) {
+            alert("Start date can't be after end date.");
             return;
         }
 
@@ -52,7 +61,7 @@ export const GraphFilters = ({ onChange }) => {
     };
 
     return (
-        <div className="transaction-filters">
+        <div className="graph-filters">
             <div className="filter-group">
                 {TRANSACTION_TYPES.map((t) => (
                     <button
@@ -80,12 +89,22 @@ export const GraphFilters = ({ onChange }) => {
             {days === "custom" && (
                 <div className="custom-range">
                     <label>
-                        С:
-                        <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
+                        From:
+                        <DatePicker
+                            selected={fromDate}
+                            onChange={(d) => setFromDate(d)}
+                            dateFormat="yyyy-MM-dd"
+                            maxDate={new Date()}
+                        />
                     </label>
                     <label>
-                        По:
-                        <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
+                        To:
+                        <DatePicker
+                            selected={toDate}
+                            onChange={(d) => setToDate(d)}
+                            dateFormat="yyyy-MM-dd"
+                            maxDate={new Date()}
+                        />
                     </label>
                     <button onClick={handleCustomSubmit}>Use</button>
                 </div>

@@ -19,14 +19,14 @@ const getColorVariants = (baseColor) => ({
 const mapDataToChart = (data, colorSet, labelSuffix = '') => ({
     datasets: [
         {
-            label: `Доход${labelSuffix}`,
+            label: `Income${labelSuffix}`,
             data: data.map(d => ({ x: d.transactionDate, y: d.totalIncome })),
             borderColor: colorSet.income,
             backgroundColor: colorSet.income,
             tension: 0.3,
         },
         {
-            label: `Расход${labelSuffix}`,
+            label: `Expense${labelSuffix}`,
             data: data.map(d => ({ x: d.transactionDate, y: d.totalOutcome })),
             borderColor: colorSet.outcome,
             backgroundColor: colorSet.outcome,
@@ -55,28 +55,27 @@ export const CategoryGraph = ({ categoryId, allCategories = [] }) => {
 
     const datasets1 = mapDataToChart(mainData?.dashboardData || [], getColorVariants('green'));
     const datasets2 = compareMode && compareData?.dashboardData
-        ? mapDataToChart(compareData.dashboardData, getColorVariants('blue'), ' (Сравнение)')
+        ? mapDataToChart(compareData.dashboardData, getColorVariants('blue'), ' (compare)')
         : { datasets: [] };
 
 
     return (
         <div className="category-graph-container">
-            <h3>📈 График по категории</h3>
 
             <GraphFilters onChange={setFilters} />
 
             <button onClick={() => setCompareMode((prev) => !prev)} style={{ margin: '10px 0' }}>
-                {compareMode ? 'Убрать сравнение' : 'Сравнить с другой категорией'}
+                {compareMode ? 'Stop compare' : 'Compare with another category'}
             </button>
 
             {compareMode && (
                 <div className="compare-panel" style={{ marginTop: '1rem' }}>
-                    <label>Категория для сравнения:</label>
+                    <label>Categories to compare with:</label>
 
                     <AutocompleteSelect
                         value={compareCategoryId}
                         onChange={setCompareCategoryId}
-                        placeholder="Введите название категории"
+                        placeholder="Enter category name or description"
                         renderLabel={(item) => item.name}
                     />
 
@@ -84,7 +83,7 @@ export const CategoryGraph = ({ categoryId, allCategories = [] }) => {
             )}
 
             {loadingMain ? (
-                <p>Загрузка графика...</p>
+                <p>Drawing graphic...</p>
             ) : (
                 <Line
                     data={{ datasets: [...datasets1.datasets, ...datasets2.datasets] }}
