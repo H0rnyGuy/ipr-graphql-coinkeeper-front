@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import { Line } from 'react-chartjs-2';
 import { GraphFilters } from './GraphFilters.tsx';
 import {
@@ -8,6 +8,7 @@ import {
 import 'chartjs-adapter-date-fns';
 import {useGraphic} from "../../hooks/categoryPage/useGraphic.ts";
 import {AutocompleteSelect} from "./AutocompleteSelect.tsx";
+import '../../styles/graph/CategoryGraph.css'
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, TimeScale);
 
@@ -64,9 +65,11 @@ export const CategoryGraph = ({ categoryId, allCategories = [] }) => {
 
             <GraphFilters onChange={setFilters} />
 
-            <button onClick={() => setCompareMode((prev) => !prev)} style={{ margin: '10px 0' }}>
-                {compareMode ? 'Stop compare' : 'Compare with another category'}
-            </button>
+            <div className="compare">
+                <button onClick={() => setCompareMode((prev) => !prev)}>
+                    {compareMode ? 'Stop compare' : 'Compare with another category'}
+                </button>
+            </div>
 
             {compareMode && (
                 <div className="compare-panel" style={{ marginTop: '1rem' }}>
