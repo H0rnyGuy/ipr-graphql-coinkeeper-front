@@ -47,7 +47,7 @@ export const AutocompleteSelect = ({
     };
 
     const handleSelect = (item) => {
-        onChange(item.id);
+        onChange(item);
         setInputValue(renderLabel(item));
         setIsOpen(false);
     };
